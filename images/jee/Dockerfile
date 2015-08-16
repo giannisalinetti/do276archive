@@ -2,7 +2,7 @@ FROM	rhel7.1
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 # Install packages necessary to run EAP
-RUN 	yum update -y && yum -y install java-1.8.0-openjdk-devel xmlstarlet saxon augeas bsdtar unzip && yum clean all
+RUN 	yum update -y && yum -y install tar less procps-ng java-1.8.0-openjdk-devel xmlstarlet saxon augeas unzip && yum clean all
 
 # Create a user and group used to launch processes
 # The user ID 1000 is the default for the first "regular" user on Fedora/RHEL,
@@ -35,7 +35,7 @@ RUN 	cd $HOME \
     && rm wildfly-$WILDFLY_VERSION.tar.gz
 
 # Expose the ports we're interested in
-EXPOSE 	8080 9990 9999
+EXPOSE 	8080 9990
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
