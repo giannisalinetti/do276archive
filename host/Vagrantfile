@@ -1,0 +1,27 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.define "atomic" do |atomic|
+    atomic.vm.box = "rhel-7.1.3" 
+    atomic.vm.hostname = "atomic.example.com"
+    atomic.vm.synced_folder ".", "/vagrant", disabled: true
+    if Vagrant.has_plugin?('vagrant-registration')
+      atomic.registration.username = ENV['rh_user']
+      atomic.registration.password = ENV['rh_pass']
+    end
+    if not ENV['pool_id'].nil?
+      atomic.vm.provision "shell" do |s|
+        s.inline = "subscription-manager attach --pool=$1"
+        s.args = "#{ENV['pool_id']}"
+      end
+    end
+    atomic.vm.provision "shell", path: "reg.sh", run: "always"
+    atomic.vm.provision "shell", path: "install.sh"
+    atomic.vm.provider "virtualbox" do |vbox|
+      vbox.gui = true
+      vbox.memory = 4096
+      vbox.cpus = 2
+      vbox.customize ["modifyvm", :id, "--vram", "128"]
+    end
+  end
+end
