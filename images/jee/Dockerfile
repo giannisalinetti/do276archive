@@ -34,6 +34,9 @@ RUN 	cd $HOME \
     && mv $HOME/wildfly-$WILDFLY_VERSION $JBOSS_HOME \
     && rm wildfly-$WILDFLY_VERSION.tar.gz
 
+# Create a console administrator account
+RUN	/opt/jboss/wildfly/bin/add-user.sh admin jboss#1! --silent
+
 # Expose the ports we're interested in
 EXPOSE 	8080 9990
 
