@@ -4,15 +4,41 @@ ip=$(ip addr show eth0 | grep -Po 'inet \K[\d.]+')
 echo "Using IP: ${ip}"
 
 yum -y update
-yum -y install vim-enhanced net-tools bind-utils git docker
-yum -y groupinstall "Server with GUI"
-hostnamectl set-hostname atomic.example.com
-echo "${ip} atomic.example.com" >> /etc/hosts
+yum -y install vim-enhanced net-tools iproute git docker
+#yum -y groupinstall "Server with GUI"
+#systemctl set-default graphical.target
+#init 5
+echo "${ip} `hostname`" >> /etc/hosts
 ssh-keygen -f /root/.ssh/id_rsa -t rsa -N ''
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 chmod 0600 ~/.ssh/authorized_keys 
 ssh-keyscan -H localhost >> ~/.ssh/known_hosts
-ssh-keyscan -H atomic.example.com >> ~/.ssh/known_hosts
+ssh-keyscan -H `hostname` >> ~/.ssh/known_hosts
 chmod 0600 ~/.ssh/known_hosts
-systemctl set-default graphical.target
-init 5
+
+# Setup Docker image storage (re-do)
+rm -f /etc/sysconfig/docker-storage-setup
+echo "DOCKER_STORAGE_OPTIONS=" > /etc/sysconfig/docker-storage
+lvremove -f VolGroup00/docker-pool
+fdisk /dev/sdb <<EOF  || true
+n
+p
+
+
+
+t
+8e
+w
+EOF
+partprobe
+pvcreate /dev/sdb1
+vgcreate docker-vg /dev/sdb1
+cat <<'EOF' > /etc/sysconfig/docker-storage-setup
+VG=docker-vg
+SETUP_LVM_THIN_POOL=yes
+EOF
+docker-storage-setup
+lvextend docker-vg/docker-pool /dev/sdb1
+systemctl stop docker
+systemctl start docker
+systemctl enable docker
