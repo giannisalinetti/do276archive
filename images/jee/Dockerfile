@@ -2,7 +2,7 @@ FROM	rhel7.1
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 # Install packages necessary to run EAP
-RUN 	yum update -y && yum -y install tar less procps-ng java-1.8.0-openjdk-devel xmlstarlet saxon augeas unzip && yum clean all
+RUN 	yum update -y && yum -y install tar less procps-ng java-1.8.0-openjdk-devel xmlstarlet saxon augeas unzip bsdtar && yum clean all
 
 # Create a user and group used to launch processes
 # The user ID 1000 is the default for the first "regular" user on Fedora/RHEL,
