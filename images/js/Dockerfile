@@ -49,4 +49,4 @@ WORKDIR	${HOME}
 ONBUILD	COPY . ${HOME}/ 
 ONBUILD RUN scl enable nodejs010 'npm install'
 
-CMD	["echo", "'You must create your own container from this one.'"]
+CMD	["echo", "You must create your own container from this one."]
