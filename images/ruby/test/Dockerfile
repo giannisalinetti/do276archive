@@ -1,5 +1,6 @@
 FROM	cl276/ruby
 
 EXPOSE	8080
+USER	appuser
 
-CMD	["sh run.sh"]
+CMD	["scl", "enable", "rh-ruby22", "./run.sh"]
