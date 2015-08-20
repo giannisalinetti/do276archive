@@ -1,5 +1,7 @@
 FROM	rhel7.1
 
+MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
+
 ENV 	RUBY_VERSION 2.2
 ENV	HOME /opt/app-root/src
 ENV 	GEM_HOME /usr/local/bundle

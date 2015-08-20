@@ -1,4 +1,5 @@
 FROM	cl276/nodejs
+MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 EXPOSE	3000
 

@@ -1,4 +1,5 @@
 FROM	rhel7.1
+MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 ENV 	NODEJS_VERSION 0.10 
 ENV	HOME /opt/app-root/src

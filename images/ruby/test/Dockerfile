@@ -1,5 +1,7 @@
 FROM	cl276/ruby
 
+MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
+
 EXPOSE	8080
 USER	appuser
 
