@@ -2,8 +2,8 @@ FROM	rhel7.1
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 ENV 	PHP_VERSION 5.6 
-ENV	HOME /opt/app-root/src \
-	PATH=$PATH:/opt/rh/rh-php56/root/usr/bin
+ENV	HOME /opt/app-root/src
+ENV	PATH=$PATH:/opt/rh/rh-php56/root/usr/bin
 
 RUN	yum --disablerepo=* \
 --enablerepo="rhel-7-server-rpms" \
