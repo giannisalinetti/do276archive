@@ -1,0 +1,2 @@
+INSERT INTO ITEM (ID,DESCRIPTION,DONE) VALUES (1,'Pick up newspaper', false);
+INSERT INTO ITEM (ID,DESCRIPTION,DONE) VALUES (2,'Buy groceries', true);
