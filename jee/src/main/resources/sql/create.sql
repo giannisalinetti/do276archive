@@ -1,2 +1,1 @@
-CREATE SEQUENCE ID START WITH 100
-CREATE TABLE ITEM("ID" INTEGER not null primary key, "DESCRIPTION" VARCHAR(100), "DONE" BOOLEAN)
+CREATE TABLE `Item` (`id` BIGINT not null auto_increment primary key, `description` VARCHAR(100), `done` BIT);

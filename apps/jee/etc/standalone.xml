@@ -151,7 +151,7 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/MySQLDS" pool-name="MySQLDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://${env.MYSQL_DB_HOST}:${env.MYSQL_DB_PORT}/${MYSQL_DB_NAME}</connection-url>
+                    <connection-url>jdbc:mysql://${env.MYSQL_DB_HOST}:${env.MYSQL_DB_PORT}/${env.MYSQL_DB_NAME}</connection-url>
                     <driver>mysql</driver>
                     <security>
                         <user-name>${env.MYSQL_DB_USERNAME}</user-name>
@@ -416,12 +416,4 @@
         </outbound-socket-binding>
     </socket-binding-group>
 
-    <deployments>
-        <deployment name="todo-3.5.war" runtime-name="todo-3.5.war">
-            <content sha1="c4212b75bed76ac4b66fe4382f5b25cc26f771ca"/>
-        </deployment>
-        <deployment name="todo-1.0.war" runtime-name="todo-1.0.war">
-            <content sha1="0b06901e7f7d0bb191a0529b3a3a73291fbd2c4c"/>
-        </deployment>
-    </deployments>
 </server>
