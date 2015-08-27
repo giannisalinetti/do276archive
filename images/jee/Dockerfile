@@ -2,7 +2,27 @@ FROM	rhel7.1
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 # Install packages necessary to run EAP
-RUN 	yum update -y && yum -y install tar less procps-ng java-1.8.0-openjdk-devel xmlstarlet saxon augeas unzip bsdtar && yum clean all
+RUN     yum --disablerepo=* \
+--enablerepo="rhel-7-server-rpms" \
+--enablerepo="rhel-7-server-extras-rpms" \
+--enablerepo="rhel-7-server-optional-rpms" \
+update -y && \
+        yum --disablerepo=* \
+--enablerepo="rhel-7-server-rpms" \
+--enablerepo="rhel-7-server-extras-rpms" \
+--enablerepo="rhel-7-server-optional-rpms" \
+install -y --setopt=tsflags=nodocs \
+augeas \
+bsdtar \
+java-1.8.0-openjdk-devel \
+less \
+nmap-ncat \
+procps-ng \
+saxon \
+tar \
+unzip \
+xmlstarlet && \
+	yum clean all
 
 # Create a user and group used to launch processes
 # The user ID 1000 is the default for the first "regular" user on Fedora/RHEL,
