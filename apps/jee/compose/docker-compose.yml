@@ -12,3 +12,6 @@ db:
     MYSQL_DATABASE: items
     MYSQL_USER: user1
     MYSQL_PASSWORD: mypa55
+  volumes:
+    - ./data:/var/lib/mysql
+    - ./initdb:/docker-entrypoint-initdb.d
