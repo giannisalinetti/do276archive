@@ -1,1 +1,1 @@
-# CL276 Python/Django To Do List App
+# DO276 Python/Django To Do List App

@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     atomic.vm.provision "shell", path: "reg.sh", run: "always"
     atomic.vm.provision "shell", path: "install.sh"
     atomic.vm.provider "virtualbox" do |vbox|
-      vbox.name = "CL276Dev"
+      vbox.name = "DO276Dev"
       #vbox.gui = true
       vbox.memory = 4096
       vbox.cpus = 2

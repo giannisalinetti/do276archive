@@ -1,4 +1,4 @@
-# CL276 Java/Java EE 7 To Do List App
+# DO276 Java/Java EE 7 To Do List App
 
 To build this application you must ensure that Java 8 is installed and configured as the default:
 
