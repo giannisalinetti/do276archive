@@ -1,4 +1,4 @@
-FROM	cl276/wildfly
+FROM	do276/wildfly
 
 MAINTAINER	Jim Rigsbee <jrigsbee@redhat.com>
 

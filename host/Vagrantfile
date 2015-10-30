@@ -2,13 +2,22 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "public_network"
+
+  ### ports allowing external access to app services inside the box:
+  # Apache Httpd
+  config.vm.network :forwarded_port, guest: 30000, host: 30000
+  # EAP and other backends
+  config.vm.network :forwarded_port, guest: 30080, host: 30080
+  # MySQL
+  config.vm.network :forwarded_port, guest: 30306, host: 30306
+
   config.vm.define "atomic" do |atomic|
     atomic.vm.box = "rhel-7.1.3" 
     atomic.vm.hostname = "atomic.example.com"
     atomic.vm.synced_folder ".", "/vagrant", disabled: true
     if Vagrant.has_plugin?('vagrant-registration')
-      atomic.registration.username = ENV['rh_user']
-      atomic.registration.password = ENV['rh_pass']
+      atomic.registration.subscriber_username = ENV['rh_user']
+      atomic.registration.subscriber_password = ENV['rh_pass']
     end
     if not ENV['pool_id'].nil?
       atomic.vm.provision "shell" do |s|
@@ -19,8 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     atomic.vm.provision "shell", path: "reg.sh", run: "always"
     atomic.vm.provision "shell", path: "install.sh"
     atomic.vm.provider "virtualbox" do |vbox|
-      vbox.name = "DO276Dev"
-      #vbox.gui = true
+      vbox.name = "DO276host"
       vbox.memory = 4096
       vbox.cpus = 2
       vbox.customize ["modifyvm", :id, "--vram", "32"]
