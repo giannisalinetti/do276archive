@@ -1,4 +1,4 @@
-FROM	rhel7.1
+FROM	rhel7.0
 
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 

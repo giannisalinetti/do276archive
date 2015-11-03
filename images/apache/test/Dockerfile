@@ -1,2 +1,2 @@
-FROM	mywebserver	
+FROM	do275/httpd
 
