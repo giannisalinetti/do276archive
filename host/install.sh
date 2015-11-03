@@ -58,5 +58,5 @@ systemctl enable $SERVICES
 SERVICES="kube-proxy kubelet"
 systemctl restart $SERVICES
 systemctl enable $SERVICES
-# No need for flannel because we are single host
+# No need for flannel because we are using a single host
 
