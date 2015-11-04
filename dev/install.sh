@@ -30,7 +30,7 @@ wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum -y localinstall epel-release-latest-7.noarch.rpm
 yum -y install python-demjson geany geany-themes # anjuta bluefish
 # add SCL packages for runtimes
-yum -y install httpd24 scl-utils mariadb55
+yum -y install httpd24 scl-utils mariadb55 mysql-connector-java
 #yum -y install python27 python27-python-pip # move to "tools to do builds ?" replace by SCL packages?
 yum -y install rh-php56 rh-php56-php rh-php56-php-mysqlnd rh-php56-php-bcmath rh-php56-php-gd rh-php56-php-intl rh-php56-php-mbstring rh-php56-php-pdo rh-php56-php-pecl-memcache rh-php56-php-process rh-php56-php-soap rh-php56-php-opcache rh-php56-php-xml rh-php56-php-pecl-xdebug 
 # node.js
@@ -89,4 +89,12 @@ SERVICES="kube-proxy kubelet"
 systemctl restart $SERVICES
 systemctl enable $SERVICES
 # No need for flannel because we are using a single host
+
+# Have Wildfly 9 ready for development and deployment
+cd /home/vagrant
+export WILDFLY_VERSION="9.0.1.Final"
+export WILDFLY_SHA1=abe037d5d1cb97b4d07fbfe59b6a1345a39a9ae5
+curl -O https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz
+tar xzf wildfly-$WILDFLY_VERSION.tar.gz
+chown -R vagrant:vagrant .
 
