@@ -3,7 +3,7 @@
 # First download Wildfly from wildfly.org and untar/unzip on the home folder
 # Automate this step on the Vagrantfile?
 
-WILDFLY_HOME=$HOME/wildfly-9.0.1.Final
+source ./env.sh
 
 # Initialize the MySQL database
 
