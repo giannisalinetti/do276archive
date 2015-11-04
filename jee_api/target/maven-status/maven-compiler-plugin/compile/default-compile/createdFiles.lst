@@ -1,0 +1,3 @@
+com/redhat/training/model/Item.class
+com/redhat/training/ui/PaginatedListWrapper.class
+com/redhat/training/rest/ItemService.class
