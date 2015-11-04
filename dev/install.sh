@@ -26,13 +26,13 @@ yum -y install gedit eof gnome-calculator nautilus yelp searhorse florence evinc
 
 # Because RHEL7.1 Gtk3 apps do not work over ssh -X add a Gtk2 programmer's editor (geany)
 # plus a lint for JSON files
-wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+wget -q https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum -y localinstall epel-release-latest-7.noarch.rpm
 yum -y install python-demjson geany geany-themes # anjuta bluefish
 # add SCL packages for runtimes
-yum -y install httpd24 scl-utils mariadb55 mysql-connector-java
+yum -y install  scl-utils httpd24 mariadb55 mysql-connector-java
 #yum -y install python27 python27-python-pip # move to "tools to do builds ?" replace by SCL packages?
-yum -y install rh-php56 rh-php56-php rh-php56-php-mysqlnd rh-php56-php-bcmath rh-php56-php-gd rh-php56-php-intl rh-php56-php-mbstring rh-php56-php-pdo rh-php56-php-pecl-memcache rh-php56-php-process rh-php56-php-soap rh-php56-php-opcache rh-php56-php-xml rh-php56-php-pecl-xdebug 
+yum -y install rh-php56 rh-php56-php rh-php56-php-mysqlnd rh-php56-php-pear rh-php56-php-bcmath rh-php56-php-gd rh-php56-php-intl rh-php56-php-mbstring rh-php56-php-pdo rh-php56-php-pecl-memcache rh-php56-php-process rh-php56-php-soap rh-php56-php-opcache rh-php56-php-xml rh-php56-php-pecl-xdebug 
 # node.js
 # ruby
 
@@ -93,8 +93,11 @@ systemctl enable $SERVICES
 # Have Wildfly 9 ready for development and deployment
 cd /home/vagrant
 export WILDFLY_VERSION="9.0.1.Final"
-export WILDFLY_SHA1=abe037d5d1cb97b4d07fbfe59b6a1345a39a9ae5
-curl -O https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz
+echo "Downloading Wildfly $WILDFLY_VERSION"
+wget -q https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz
 tar xzf wildfly-$WILDFLY_VERSION.tar.gz
-chown -R vagrant:vagrant .
+sed -i 's/port-offset:0/port-offset:10000/' ./wildfly-$WILDFLY_VERSION/standalone/configuration/standalone.xml
+./wildfly-$WILDFLY_VERSION/bin/add-user.sh admin jboss#1! --silent
+chown -R vagrant:vagrant ./wildfly-$WILDFLY_VERSION
+
 

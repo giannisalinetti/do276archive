@@ -5,7 +5,9 @@ This Vagrant Box adds GUI desktop (Gnome3) to the Host environment, plus a host 
 
 The Geany programmer's editor is also present if you prefer ssh -X than using the VM console, as  RHEL7 Gtk3 apps such as gedit do not work well over SSH.
 
-If you wanna run JBDS/Eclipse (not installed in this box) you have to execute them using `SWT_GTK3=0`
+If you wanna run JBDS/Eclipse (not installed in this box) you have to execute them using `SWT_GTK3=0`.
+
+Wildfly is configured with port-offset 1000 to avoid conflict with Kubernetes.
 
 Dockerfiles and sample applications can be found at: `https://github.com/jimrigsbee/do276.git`
 
