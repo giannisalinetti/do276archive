@@ -13,5 +13,5 @@ docker run -d --name mysql -e MYSQL_DATABASE=items -e MYSQL_USER=user1 -e MYSQL_
 
 docker run -d --name=todoapi -e MYSQL_DB_NAME=items --link mysql:mysql -p 30080:8080 do276/todoapi_jee
 
-#docker run -d --name=todoui --link todoapi:todoapi -p 30000:80 do276/todo_frontend
+docker run -d --name=todoui --link todoapi:todoapi -p 30000:80 do276/todo_frontend
 
