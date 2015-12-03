@@ -22,8 +22,7 @@ var server = restify.createServer()
     .use(restify.CORS());
     
 //server.get({ path: "/todo/api/items" }, items.list);
-controller.context(server, '/todo/api'); 
-controller.model(model);
+controller.context(server, '/todo/api', model); 
 
 var port = process.env.PORT || 8080;
 server.listen(port, function (err) {

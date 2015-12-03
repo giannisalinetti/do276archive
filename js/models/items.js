@@ -1,4 +1,5 @@
 var Sequelize = require("sequelize");
+
 var Item = undefined;
 
 module.exports.connect = function(params, callback) {
@@ -17,8 +18,9 @@ module.exports.connect = function(params, callback) {
         timestamps: false,
         freezeTableName: true
     });
+    // drop and create tables, better done globally
     /*
-    Item.sync({ force: false }).then(function() {
+    Item.sync({ force: true }).then(function() {
         callback();
     }).error(function(err) {
         callback(err);
@@ -67,7 +69,7 @@ exports.update = function(key, description, done, callback) {
 exports.read = function(key, callback) {
     Item.find({ where:{ id: key } }).then(function(item) {
         if (!item) {
-            callback(new Error("Nothing found for key" + key));
+            callback(new Error("Nothing found for key " + key));
         }
         else {
             //XXX why recreating the item object?
@@ -77,6 +79,8 @@ exports.read = function(key, callback) {
                 done: item.done
             });
         }
+    }).error(function(err) {
+        callback(err);
     });
 }
 
@@ -92,6 +96,8 @@ exports.destroy = function(key, callback) {
                 callback(err);
             });
         }
+    }).error(function(err) {
+        callback(err);
     });
 }
 
@@ -104,6 +110,8 @@ exports.listAll = function(callback) {
                 id: item.id, description: item.description, done: item.done });
         });
         callback(null, theitems);
+    }).error(function(err) {
+        callback(err);
     });
 }
 
