@@ -48,6 +48,27 @@ def hello():
     return "Hello World!"
 
 
+def count_items():
+    query = "SELECT COUNT(*) FROM todo.Item"
+    g.cursor.execute(query)
+    data = g.cursor.fetchone()[0]
+    return data
+
+
+def find_items(start_position, max_results, sort_fields, sort_directions):
+    query = "SELECT i FROM todo.Item i ORDER BY i." + sort_fields + " " + sort_directions + " limit " + \
+            start_position + "," + max_results
+    result = query_db(query)
+    data = json.dumps(result)
+    print(data)
+    return data
+
+@app.route("/api/items", methods=['GET'])
+def list_items():
+    args = request.args
+    
+
+
 # Tester method for getting all the times
 @app.route("/api/items/items", methods=['GET'])
 def items():
@@ -86,10 +107,8 @@ def save_item():
     }
 
     if not item.get('id', ""):
-        print("no id, this is new")
         query = "INSERT INTO todo.Item(description, done) VALUES(%s,%s)"
     else:
-        print("has an id, so let's update")
         query = "UPDATE todo.Item SET description = %s, done = %s WHERE todo.Item.id = " + item.get('id', "")
     args = (item.get('description', ""), item.get('done', ""))
     g.cursor.execute(query, args)
