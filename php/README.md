@@ -23,6 +23,7 @@ Should have provisions for CORS but was tested with front end and back end toget
 `<Directory "/opt/rh/httpd24/root/var/www/html">`
 
 `...`
+
 `    #AllowOverride None`
 
 `    AllowOverride All`
