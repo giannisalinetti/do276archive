@@ -2,14 +2,15 @@
 
 Start Wildfly:
 
-$ cd ~/wildfly-*/bin
-$ ./standalone.sh
+`$ cd ~/wildfly-*/bin`
+`$ ./standalone.sh`
+
 Open another terminal/session and uun scripts in order:
 
-./createDS.sh
-./build.sh
-./deploy.sh
-./test.sh
+`$ ./createDS.sh`
+`$ . /build.sh`
+`$ ./deploy.sh`
+`$ ./test.sh`
 
 Then start the HTML5 front-end
 
