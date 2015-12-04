@@ -21,8 +21,10 @@ Should have provisions for CORS but was tested with front end and back end toget
 * Change /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf as follows because Slim needs .htaccess customization:
 
 `<Directory "/opt/rh/httpd24/root/var/www/html">`
+
 `...`
 `    #AllowOverride None`
+
 `    AllowOverride All`
 
 * Edit /opt/rh/httpd24/service-environment so the httpd service from SCL sees PHP from SCL
@@ -38,6 +40,7 @@ Should have provisions for CORS but was tested with front end and back end toget
 * Copy app to apache docroot (where the todo front end is already installed)
 
 `cd ..`
+
 `cp -rp todo ~/do276/php/`
 
 * Change frontend to get servince in port 80
