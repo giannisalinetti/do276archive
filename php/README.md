@@ -44,5 +44,5 @@ Should have provisions for CORS but was tested with front end and back end toget
 
 `cp -rp todo ~/do276/php/`
 
-* Change frontend to get servince in port 80
+* Change frontend to access service in port 80
 
