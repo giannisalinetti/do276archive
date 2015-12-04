@@ -5,6 +5,7 @@ from flask import request
 from flask import abort
 import json
 import mysql.connector
+import os
 from mysql.connector import errorcode
 
 app = Flask(__name__)
@@ -30,6 +31,9 @@ def db_connect():
 
 @app.after_request
 def db_disconnect(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     g.cursor.close()
     g.cnx.close()
     return response
@@ -40,12 +44,6 @@ def query_db(query, args=(), one=False):
     rv = [dict((g.cursor.description[idx][0], value)
                for idx, value in enumerate(row)) for row in g.cursor.fetchall()]
     return (rv[0] if rv else None) if one else rv
-
-
-# Test method for hello world
-@app.route("/")
-def hello():
-    return "Hello World!"
 
 
 def count_items():
@@ -63,22 +61,23 @@ def find_items(start_position, max_results, sort_fields, sort_directions):
     print(data)
     return data
 
-@app.route("/api/items", methods=['GET'])
+
+@app.route("/todo/api/items", methods=['GET'])
 def list_items():
-    args = request.args
-    
-
-
-# Tester method for getting all the times
-@app.route("/api/items/items", methods=['GET'])
-def items():
     result = query_db("SELECT * FROM todo.Item")
-    data = json.dumps(result)
-    resp = Response(data, status=200, mimetype='application/json')
-    return resp
+    full_response = ({
+        "currentPage": 1,
+        "list": result,
+        "pageSize": 10,
+        "sortDirections": "asc",
+        "sortFields": "id",
+        "totalResults": count_items()
+    })
+    json_resp = json.dumps(full_response)
+    return Response(json_resp, status=200, mimetype='application/json')
 
 
-@app.route("/api/items/<id>", methods=['DELETE'])
+@app.route("/todo/api/items/<id>", methods=['DELETE'])
 def delete_item(id):
     query = "DELETE FROM todo.Item WHERE todo.Item.id = " + id
     g.cursor.execute(query)
@@ -87,15 +86,15 @@ def delete_item(id):
     return resp
 
 
-@app.route("/api/items/<id>", methods=['GET'])
+@app.route("/todo/api/items/<id>", methods=['GET'])
 def get_item(id):
     result = query_db("SELECT * FROM todo.Item WHERE todo.Item.id = " + id)
-    data = json.dumps(result)
+    data = json.dumps(result[0])
     resp = Response(data, status=200, mimetype='application/json')
     return resp
 
 
-@app.route("/api/items", methods=['POST'])
+@app.route("/todo/api/items", methods=['POST'])
 def save_item():
     the_request = request.get_json(force=True)
     if not the_request:
@@ -109,12 +108,12 @@ def save_item():
     if not item.get('id', ""):
         query = "INSERT INTO todo.Item(description, done) VALUES(%s,%s)"
     else:
-        query = "UPDATE todo.Item SET description = %s, done = %s WHERE todo.Item.id = " + item.get('id', "")
+        query = "UPDATE todo.Item SET description = %s, done = %s WHERE todo.Item.id = " + str(item.get('id', ""))
     args = (item.get('description', ""), item.get('done', ""))
     g.cursor.execute(query, args)
     g.cnx.commit()
     data = json.dumps(item)
-    resp = Response("Updated", status=201, mimetype='application/json')
+    resp = Response(data, status=201, mimetype='application/json')
     return resp
 
 
@@ -137,4 +136,5 @@ def save_item():
 
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get('PORT', 30080))
+    app.run(port=port)
