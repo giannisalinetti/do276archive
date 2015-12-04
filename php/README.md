@@ -8,8 +8,9 @@ Should have provisions for CORS but was tested with front end and back end toget
 
 * Installing composer from RHEL7 official repos conflits with pythom-demjson from EPEL. Remove it.
 
-`sudo yum remove python-demjson
-sudo yum -y install composer`
+`sudo yum remove python-demjson`
+
+`sudo yum -y install composer`
 
 * Install packages: rh-php56 rh-php56-php-pear rh-php56-php-pecl-jsonc rh-php56-php-mysqlnd rh-php56-php rh-php56-php-pdo
 
@@ -19,10 +20,10 @@ sudo yum -y install composer`
 
 * Change /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf as follows because Slim needs .htaccess customization:
 
-`<Directory "/opt/rh/httpd24/root/var/www/html">
-...
-    #AllowOverride None
-    AllowOverride All`
+`<Directory "/opt/rh/httpd24/root/var/www/html">`
+`...`
+`    #AllowOverride None`
+`    AllowOverride All`
 
 * Edit /opt/rh/httpd24/service-environment so the httpd service from SCL sees PHP from SCL
 
@@ -36,8 +37,8 @@ sudo yum -y install composer`
 
 * Copy app to apache docroot (where the todo front end is already installed)
 
-`cd ..
-cp -rp todo ~/do276/php/`
+`cd ..`
+`cp -rp todo ~/do276/php/`
 
 * Change frontend to get servince in port 80
 
