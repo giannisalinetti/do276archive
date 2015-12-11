@@ -89,7 +89,14 @@ def delete_item(id):
 @app.route("/todo/api/items/<id>", methods=['GET'])
 def get_item(id):
     result = query_db("SELECT * FROM todo.Item WHERE todo.Item.id = " + id)
-    data = json.dumps(result[0])
+    dict = result[0]
+    if dict['done']:
+        dict['done'] = True
+    else:
+        dict['done'] = False
+    data = json.dumps(dict)
+    is_it_done = dict.get('done', "")
+    print(is_it_done)
     resp = Response(data, status=200, mimetype='application/json')
     return resp
 
@@ -115,24 +122,6 @@ def save_item():
     data = json.dumps(item)
     resp = Response(data, status=201, mimetype='application/json')
     return resp
-
-
-# @app.route("/names", methods=['GET'])
-# def names():
-#     result = query_db("SELECT firstname,lastname FROM test.name")
-#     data = json.dumps(result)
-#     resp = Response(data, status=200, mimetype='application/json')
-#     return resp
-#
-#
-# @app.route("/add", methods=['POST'])
-# def add():
-#     req_json = request.get_json()
-#     g.cursor.execute("INSERT INTO test.name (firstname, lastname) VALUES (%s,%s)",
-#                      (req_json['firstname'], req_json['lastname']))
-#     g.conn.commit()
-#     resp = Response("Updated", status=201, mimetype='application/json')
-#     return resp
 
 
 if __name__ == "__main__":
