@@ -54,26 +54,48 @@ def count_items():
 
 
 def find_items(start_position, max_results, sort_fields, sort_directions):
-    query = "SELECT i FROM todo.Item i ORDER BY i." + sort_fields + " " + sort_directions + " limit " + \
-            start_position + "," + max_results
+    query = "SELECT * FROM todo.Item ORDER BY todo.Item." + sort_fields + " " + sort_directions + " limit " + \
+            str(start_position) + "," + str(max_results)
+
     result = query_db(query)
-    data = json.dumps(result)
-    print(data)
-    return data
+    return result
+
+
+# @app.route("/todo/api/items", methods=['GET'])
+# def list_items():
+#     result = query_db("SELECT * FROM todo.Item")
+#     full_response = ({
+#         "currentPage": 1,
+#         "list": result,
+#         "pageSize": 10,
+#         "sortDirections": "asc",
+#         "sortFields": "id",
+#         "totalResults": count_items()
+#     })
+#
+#     json_resp = json.dumps(full_response)
+#     print(json_resp)
+#     return Response(json_resp, status=200, mimetype='application/json')
 
 
 @app.route("/todo/api/items", methods=['GET'])
-def list_items():
-    result = query_db("SELECT * FROM todo.Item")
+def list_items_test():
+    page_size = 10
+    page = request.args.get('page')
+    sort_fields = request.args.get('sortFields')
+    sort_directions = request.args.get('sortDirections')
+    start = (int(page) - 1) * page_size
+    result = find_items(start, page_size, sort_fields, sort_directions)
     full_response = ({
-        "currentPage": 1,
+        "currentPage": page,
         "list": result,
-        "pageSize": 10,
-        "sortDirections": "asc",
-        "sortFields": "id",
+        "pageSize": page_size,
+        "sortDirections": sort_directions,
+        "sortFields": sort_fields,
         "totalResults": count_items()
     })
     json_resp = json.dumps(full_response)
+    print(json_resp)
     return Response(json_resp, status=200, mimetype='application/json')
 
 
@@ -95,8 +117,6 @@ def get_item(id):
     else:
         dict['done'] = False
     data = json.dumps(dict)
-    is_it_done = dict.get('done', "")
-    print(is_it_done)
     resp = Response(data, status=200, mimetype='application/json')
     return resp
 
