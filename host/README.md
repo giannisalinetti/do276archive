@@ -23,6 +23,8 @@ Dockerfiles and sample applications can be found at: `https://github.com/jimrigs
 * Start the vagrant machine
   * From the do276/host directory
     * vagrant up --provider virtualbox
+    * BUG BUG BUG - The vagrant box appears to have a bug - the DEVICE="eth0" is missing from /etc/sysconfig/network-scripts/ifcfg-eth0
+    * Vagrant will complain it cannot connect - bring up VirtualBox and login to the workstation with a terminal, sudo su -, and fix the file, ifup eth0 and you should be good to go
 * Enjoy!
   * vagrant ssh
 * Turn off auto_config on the private network
