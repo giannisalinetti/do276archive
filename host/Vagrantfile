@@ -1,7 +1,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.network "public_network"
+  config.vm.network :private_network, ip: "192.168.1.100" 
+  #config.vm.network :private_network, ip: "192.168.1.100", auto_config: false
 
   ### ports allowing external access to app services inside the box:
   # Apache Httpd for front end
@@ -12,19 +13,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 30306, host: 30306
 
   config.vm.define "workstation" do |workstation|
-    workstation.vm.box = "rhel-7.1.3" 
+    workstation.vm.box = "rhel-7.2" 
     workstation.vm.hostname = "workstation.example.com"
     workstation.vm.synced_folder ".", "/vagrant", disabled: true
-    if Vagrant.has_plugin?('vagrant-registration')
-      workstation.registration.subscriber_username = ENV['rh_user']
-      workstation.registration.subscriber_password = ENV['rh_pass']
-    end
-    if not ENV['pool_id'].nil?
-      workstation.vm.provision "shell" do |s|
-        s.inline = "subscription-manager attach --pool=$1"
-        s.args = "#{ENV['pool_id']}"
-      end
-    end
     workstation.vm.provision "shell", path: "reg.sh", run: "always"
     workstation.vm.provision "shell", path: "install.sh"
     workstation.vm.provider "virtualbox" do |vbox|

@@ -1,0 +1,4 @@
+Vagrant.configure('2') do |config|
+  config.registration.username = 'REDHAT.COM username'
+  config.registration.password = 'REDHAT.COM password'
+end
