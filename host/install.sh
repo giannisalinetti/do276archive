@@ -19,6 +19,9 @@ ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 ssh-keyscan -H `hostname` >> ~/.ssh/known_hosts
 chmod 0600 ~/.ssh/known_hosts
 
+useradd -G wheel student
+echo 'redhat' | passwd student --stdin
+
 # Setup Docker image storage (re-do)
 rm -f /etc/sysconfig/docker-storage-setup
 echo "DOCKER_STORAGE_OPTIONS=" > /etc/sysconfig/docker-storage
