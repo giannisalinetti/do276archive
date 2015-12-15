@@ -46,6 +46,7 @@ EOF
 docker-storage-setup
 lvextend docker-vg/docker-pool /dev/sdb1
 systemctl stop docker
+rm -fr /var/lib/docker/*
 systemctl start docker
 systemctl enable docker
 
