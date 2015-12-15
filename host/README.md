@@ -5,7 +5,7 @@ This Vagrant Box has the minimal setup to build the base container images, the a
 
 Dockerfiles and sample applications can be found at: `https://github.com/jimrigsbee/do276.git`
 
-Tested under RHEL 7.1 and using
+Tested by flozano@redhat.com under RHEL 7.1 CSB and using:
 
 * VirtualBox 5.0.8
 * Vagrant 1.7.4
