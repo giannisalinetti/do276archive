@@ -3,6 +3,7 @@ from flask import g
 from flask import Response
 from flask import request
 from flask import abort
+from flask import render_template
 import json
 import mysql.connector
 import os
@@ -14,9 +15,11 @@ app = Flask(__name__)
 @app.before_request
 def db_connect():
     try:
-        g.cnx = mysql.connector.connect(user='root', password='',
-                                        host='127.0.0.1',
-                                        database='todo')
+        g.cnx = mysql.connector.connect(user=os.environ.get("MYSQL_DB_USERNAME", 'root'),
+                                        password=os.environ.get("MYSQL_DB_PASSWORD", ''),
+                                        host=os.environ.get("MYSQL_DB_HOST", '127.0.0.1'),
+                                        port=os.environ.get("MYSQL_DB_PORT", '3306'),
+                                        database=os.environ.get("MYSQL_DB_NAME",'todo'))
         g.cursor = g.cnx.cursor()
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -61,27 +64,22 @@ def find_items(start_position, max_results, sort_fields, sort_directions):
     return result
 
 
-# @app.route("/todo/api/items", methods=['GET'])
-# def list_items():
-#     result = query_db("SELECT * FROM todo.Item")
-#     full_response = ({
-#         "currentPage": 1,
-#         "list": result,
-#         "pageSize": 10,
-#         "sortDirections": "asc",
-#         "sortFields": "id",
-#         "totalResults": count_items()
-#     })
-#
-#     json_resp = json.dumps(full_response)
-#     print(json_resp)
-#     return Response(json_resp, status=200, mimetype='application/json')
+@app.route("/todo", methods=['GET', 'POST'])
+def index():
+    return render_template("index.html")
+
+
+@app.route("/", methods=['GET', 'POST'])
+def hello():
+    return render_template("hello.html")
 
 
 @app.route("/todo/api/items", methods=['GET'])
-def list_items_test():
+def list_items():
     page_size = 10
     page = request.args.get('page')
+    if page is None:
+        page = 1
     sort_fields = request.args.get('sortFields')
     sort_directions = request.args.get('sortDirections')
     start = (int(page) - 1) * page_size
