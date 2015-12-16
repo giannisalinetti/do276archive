@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "workstation" do |workstation|
     workstation.vm.box = "rhel-7.2" 
-    workstation.vm.hostname = "workstation.example.com"
+    workstation.vm.hostname = "workstation.lab.example.com"
     workstation.vm.synced_folder ".", "/vagrant", disabled: false
     workstation.vm.provision "shell", path: "reg.sh", run: "always"
     workstation.vm.provision "shell", path: "install.sh"
