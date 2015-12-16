@@ -4,7 +4,7 @@ ip=$(ip addr show eth0 | grep -Po 'inet \K[\d.]+')
 echo "Using IP: ${ip}"
 
 yum -y update
-yum -y install vim-enhanced net-tools iproute git docker kubernetes etcd
+yum -y install vim-enhanced net-tools iproute git docker kubernetes etcd httpd
 # Tools to do builds from source code
 yum -y install maven java-1.8.0-openjdk-devel
 # XXX Ugly hack, does anyone knows a better way?
@@ -20,7 +20,7 @@ ssh-keyscan -H `hostname` >> ~/.ssh/known_hosts
 chmod 0600 ~/.ssh/known_hosts
 
 useradd -G wheel student
-echo 'redhat' | passwd student --stdin
+echo 'student' | passwd student --stdin
 
 # Setup Docker image storage (re-do)
 rm -f /etc/sysconfig/docker-storage-setup
@@ -63,4 +63,12 @@ SERVICES="kube-proxy kubelet"
 systemctl restart $SERVICES
 systemctl enable $SERVICES
 # No need for flannel because we are using a single host
+
+# Setup grading script infrastructure
+systemctl start httpd
+systemctl enable httpd
+unzip -o /vagrant/grading.zip -d /
+chcon -R --reference=/var/www /content
+systemctl restart httpd
+echo "127.0.0.1 content.example.com" >> /etc/hosts
 

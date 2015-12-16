@@ -50,3 +50,20 @@ Tested by flozano@redhat.com under RHEL 7.1 CSB and using:
   * Vagrant has a bug and will try to change the first NIC's IP address
   * Comment out the first line and uncomment the second in the Vagrantfile
   * The line begins config.vm.network :private_network...
+
+## Grading scripts
+
+Thix box resolves content.example.com to 127.0.0.1 to simulate the grading infrastructure on a UCF classroom.
+
+A sample grading script named 'example' is installed, you can enter the box as a student and run the sample grading script it using:
+
+  `[flozano@flozano host]$ vagrant ssh -- -l student`
+
+  `[student@workstation ~]$ lab example setup`
+
+  `[student@workstation ~]$ lab example grade`
+
+New scripts can be added to /content/courses/do276/atomic/grading-scripts.
+
+During development, any content in the host folder is copied to /vagrant inside the box so you can use this to move content in an out the VM. Just don't commit this to the git project.
+
