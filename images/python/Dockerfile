@@ -1,7 +1,7 @@
-FROM	rhel7.1
+FROM	rhel7.2
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
-ENV 	PYTHON_VERSION 2.7
+ENV 	PYTHON_VERSION 3.4
 ENV	HOME /opt/app-root/src
 ENV	PATH .local/bin/:$PATH:/opt/rh/python27/root/usr/bin
 
@@ -27,10 +27,10 @@ mariadb-libs \
 openssl-devel \
 postgresql-devel \
 procps-ng \
-python27 \
-python27-python-devel \
-python27-python-setuptools \
-python27-python-pip \
+python34 \
+python34-python-devel \
+python34-python-setuptools \
+python34-python-pip \
 scl-utils \
 sqlite-devel \
 tar \
@@ -44,7 +44,7 @@ RUN	mkdir -p /opt/app-root && \
   	groupadd -r appuser -f -g 1001 && \
   	useradd -u 1001 -r -g appuser -m -d ${HOME} -s /sbin/nologin \
 -c "Application User" appuser
-ADD	./enable-python27.sh /etc/profile.d/
+ADD	./enable-python34.sh /etc/profile.d/
 COPY    ./contrib/ /opt/app-root/
 ADD	./build.sh ${HOME}/
 RUN  	chown -R appuser:appuser /opt/app-root && \

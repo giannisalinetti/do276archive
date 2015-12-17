@@ -1,1 +1,1 @@
-# DO276 Python/Django Docker Image
+# DO276 Python Docker Image

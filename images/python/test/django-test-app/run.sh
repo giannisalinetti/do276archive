@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/profile.d/enable-python27.sh
+source /etc/profile.d/enable-python34.sh
 source /opt/app-root/etc/generate_container_user
 
 function is_gunicorn_installed() {
