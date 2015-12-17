@@ -54,5 +54,3 @@ WORKDIR	${HOME}
 
 ONBUILD COPY . ${HOME}/
 ONBUILD RUN ./build.sh 
-
-CMD	["echo", "You must create your own container with your app source code."]
