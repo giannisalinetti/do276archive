@@ -1,6 +1,8 @@
 
 # Dev environment for DO276
 
+IMPORTANT: this vagrant box is not being maintained, if you intend to use it please review host vagrant box changes and apply here.
+
 This Vagrant Box adds GUI desktop (Gnome3) to the Host environment, plus a host of development tools for Java EE, Node.js, Ruby, Python and PHP.
 
 The Geany programmer's editor is also present if you prefer ssh -X than using the VM console, as  RHEL7 Gtk3 apps such as gedit do not work well over SSH.

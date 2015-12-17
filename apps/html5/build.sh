@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
-rm -rf src
-cp -rp ../../html5/src .
+sudo systemctl start httpd24-httpd
+sudo systemctl enable httpd24-httpd
 
-docker build -t do276/todo_frontend . 
+DOCROOT=/opt/rh/httpd24/root/var/www/html/
 
-# how to point Angular to the api container?
-# - sed the js file on container start?
-# - have a dymanic page to return the env var?
+sudo rm -rf $DOCROOT/todo
+sudo cp -r src/ $DOCROOT/todo
+sudo chmod -R a+rX $DOCROOT/todo
 

@@ -1,6 +1,8 @@
-# DO276 To Do HTML5 front-end as a container
+# DO276 Angular-based HTML5 To Do List app front-end
 
-Do not start this one directly: it needs dynamic information about where is the API container from environment variables.
+Start one of the backends and runt he build.sh script.
 
-The scripts for each version of the API container will start the front-end container with correct configs.
+The script copies the HTML pages to Apache and them starts the httpd24-httpd systemd service.
+
+Open a web browser and visit http://localhost/todo to run the application
 

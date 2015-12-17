@@ -1,1 +1,4 @@
-src
+.classpath
+.project
+.tern-project
+.settings
