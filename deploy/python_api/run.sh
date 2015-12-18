@@ -5,7 +5,7 @@ set -e
 
 rm -fr build
 mkdir -p build
-cp -a ../../python_api/* build
+cp -a ../../apps/python_api/* build
 cd build
 
 APP_FILE="${APP_FILE:-app.py}"
