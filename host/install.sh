@@ -19,7 +19,8 @@ ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 ssh-keyscan -H `hostname` >> ~/.ssh/known_hosts
 chmod 0600 ~/.ssh/known_hosts
 
-useradd -G wheel student
+#useradd -G wheel student
+useradd -G docker student
 echo 'student' | passwd student --stdin
 
 # Setup Docker image storage (re-do)

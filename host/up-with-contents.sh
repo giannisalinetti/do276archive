@@ -17,7 +17,7 @@ tar czf $HOSTDIR/contents.tar.gz content
 #cp do276.mysql-55-rhel7-src.tar.gz $HOSTDIR
 popd
 for image in $IMAGES ; do
-  cp -p $IMAGES/$image.tar.gz .
+  cp -p $IMAGESDIR/$image.tar.gz .
 done
 
 vagrant up --provider=virtualbox
