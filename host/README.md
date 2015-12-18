@@ -67,3 +67,12 @@ New scripts can be added to /content/courses/do276/atomic/grading-scripts.
 
 During development, any content in the host folder is copied to /vagrant inside the box so you can use this to move content in an out the VM. Just don't commit this to the git project.
 
+## Private Registry
+
+* Sign on as root: sudo su -
+* cd /vagrant
+* sh privatereg.sh
+* vi /etc/sysconfig/docker
+  * add workstation.lab.example.com:5000 as added registry and insecure registry
+  * systemctl restart docker
+
