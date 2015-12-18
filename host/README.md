@@ -24,9 +24,16 @@ Tested by flozano@redhat.com under RHEL 7.1 CSB and using:
     * install the plugin using your regular user!
 * Download the RHEL 7.2 Vagrant box 
   * download RHEL 7.2 Vagrant box for VirtualBox from:
-  * https://access.redhat.com/downloads/content/293/ver=2/rhel---7/2.0.0/x86_64/product-software
+  * `https://access.redhat.com/downloads/content/293/ver=2/rhel---7/2.0.0/x86_64/product-software`
   * add box to vagrant cache:
     * vagrant box add --name rhel-7.2 ~/Downloads/rhel-cdk-kubernetes-7.2-6.x86_64.vagrant-virtualbox.box
+* OPTIONAL: Download latest CDK build to fix the DEVICE BUG
+  * download `rhel-7.2-server-kubernetes-vagrant-scratch-7.2-1.x86_64.vagrant-virtualbox.box` from:
+  * `http://cdk-builds.usersys.redhat.com/builds/11-Dec-2015/`
+  * use this file to create the rhel-7.2 base vagrant box:
+  * vagrant box remove rhel-7.2
+  * vagrant box add --name rhel-7.2 ~/Downloads/rhel-7.2-server-kubernetes-vagrant-scratch-7.2-1.x86_64.vagrant-virtualbox.box
+  * If you have already created your workstation box it have to be destroyed before replacing the base box
 * From the do276/host directory
 * Configure RHN credentials into $HOME/.vagrant.d
   * copy the template configuration file ./.vagrant.d/Vagrantfile to $HOME/.vagrant.d
@@ -42,7 +49,7 @@ Tested by flozano@redhat.com under RHEL 7.1 CSB and using:
       * User 'vagrant' already has sudo access
       * If you are fast enough vagrant up won't timeout.
       * If not, shutdown the VM on VirtualBox and vagrant up again
-    * vagrant up may look frozen during registration and provisioning but it is ok.   
+    * vagrant up may look frozen during registration and provisioning but it is ok.
 * Enjoy!
   * vagrant ssh
   * you can 'su - student' to work like in UCF classroom
@@ -65,14 +72,24 @@ A sample grading script named 'example' is installed, you can enter the box as a
 
 New scripts can be added to /content/courses/do276/atomic/grading-scripts.
 
-During development, any content in the host folder is copied to /vagrant inside the box so you can use this to move content in an out the VM. Just don't commit this to the git project.
+During development, any content in the host folder is copied to /vagrant inside the box so you can use this to move content in an out the VM. Just don't commit this to the github project.
 
 ## Private Registry
+
+Those steps are already in install.sh (which calls privatereg.sh)
 
 * Sign on as root: sudo su -
 * cd /vagrant
 * sh privatereg.sh
 * vi /etc/sysconfig/docker
-  * add workstation.lab.example.com:5000 as added registry and insecure registry
+  * add servera.example.com:5000 as added registry and insecure registry
   * systemctl restart docker
+  * Those edits are now performed by privatereg.sh
+
+
+## helper script
+
+The shell script `up-with-contents.sh` was designed to help put container images and lab scripts inside the vagrant box. It copies the /contents folder from DO276 SVN and images saved as tar.gz in a local cache folder to the vagrant box and makes sure they are installed. In the end the docker daemon has no local images, all are in the private registry.
+
+It is supposed to be run with the box halted (but not destroyed) and will up the box. In the end the script logs in as the student user.
 

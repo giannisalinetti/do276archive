@@ -18,6 +18,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     workstation.vm.synced_folder ".", "/vagrant", disabled: false
     workstation.vm.provision "shell", path: "reg.sh", run: "always"
     workstation.vm.provision "shell", path: "install.sh"
+    # grading and registry could be lere as "always"
+    
     workstation.vm.provider "virtualbox" do |vbox|
       vbox.name = "workstation"
       vbox.memory = 4096

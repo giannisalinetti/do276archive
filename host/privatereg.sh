@@ -37,6 +37,16 @@ systemctl stop docker
 systemctl stop docker-registry
 mkdir -p /var/lib/docker-registry
 rm -rf /tmp/docker-registry.db
+
+#Configure the docker daemon to use the internal registry
+
+echo "127.0.0.1 servera.example.com" >> /etc/hosts
+sed -i "s/ADD_REGISTRY='/ADD_REGISTRY='--add-registry servera.example.com:5000 /" /etc/sysconfig/docker
+sed -i "s/# INSECURE_REGISTRY='--insecure-registry/INSECURE_REGISTRY='--insecure-registry servera.example.com:5000/" /etc/sysconfig/docker
+
+# Add steps to preload images?
+
 systemctl start docker
 systemctl start docker-registry
+
 

@@ -65,11 +65,8 @@ systemctl enable $SERVICES
 # No need for flannel because we are using a single host
 
 # Setup grading script infrastructure
-systemctl start httpd
-systemctl enable httpd
-unzip -o /vagrant/grading.zip -d /
-ln -s /usr/local/bin/lab /usr/local/bin/demo
-chcon -R --reference=/var/www /content
-systemctl restart httpd
-echo "127.0.0.1 content.example.com" >> /etc/hosts
+bash /vagrant/grading.sh
+
+# Setup private registry for custom images
+bash /vagrant/privatereg.sh
 
