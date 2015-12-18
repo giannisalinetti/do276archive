@@ -2,6 +2,7 @@
 source /etc/profile.d/enable-python34.sh
 
 chmod -R og+rwx /opt/rh
+chown -R $USER:$USER
 
 pip install mysql-connector-python --allow-external mysql-connector-python
 
