@@ -1,11 +1,6 @@
 #!/bin/bash
 source /etc/profile.d/enable-python34.sh
 
-chmod -R og+rwx /opt/rh/rh-python34
-chown -R $USER:$USER /opt/rh/rh-python34
-
-pip install mysql-connector-python --allow-external mysql-connector-python
-
 set -e
 
 rm -fr build
