@@ -3,7 +3,7 @@ MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 ENV 	PYTHON_VERSION 3.4
 ENV	HOME /opt/app-root/src
-ENV	PATH .local/bin/:$PATH:/opt/rh/python27/root/usr/bin
+ENV	PATH .local/bin/:$PATH:/opt/rh/rh-python34/root/usr/bin
 
 RUN	yum --disablerepo=* \
 --enablerepo="rhel-7-server-rpms" \
@@ -27,10 +27,10 @@ mariadb-libs \
 openssl-devel \
 postgresql-devel \
 procps-ng \
-python34 \
-python34-python-devel \
-python34-python-setuptools \
-python34-python-pip \
+rh-python34 \
+rh-python34-python-devel \
+rh-python34-python-setuptools \
+rh-python34-python-pip \
 scl-utils \
 sqlite-devel \
 tar \
@@ -54,3 +54,5 @@ WORKDIR	${HOME}
 
 ONBUILD COPY . ${HOME}/
 ONBUILD RUN ./build.sh 
+
+CMD	["echo", "You must create your own container with your app source code."]
