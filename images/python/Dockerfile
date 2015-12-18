@@ -46,13 +46,13 @@ RUN	mkdir -p /opt/app-root && \
 -c "Application User" appuser
 ADD	./enable-python34.sh /etc/profile.d/
 COPY    ./contrib/ /opt/app-root/
-ADD	./build.sh ${HOME}/
+ADD	./compile.sh ${HOME}/
 RUN  	chown -R appuser:appuser /opt/app-root && \
 	chmod -R og+rwx /opt/app-root
 
 WORKDIR	${HOME}
 
-ONBUILD COPY . ${HOME}/
-ONBUILD RUN ./build.sh 
+ONBUILD COPY ./build/* ${HOME}/
+ONBUILD RUN ./compile.sh
 
 CMD	["echo", "You must create your own container with your app source code."]
