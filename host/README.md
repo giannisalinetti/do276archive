@@ -89,7 +89,9 @@ Those steps are already in install.sh (which calls privatereg.sh)
 
 ## helper script
 
-The shell script `up-with-contents.sh` was designed to help put container images and lab scripts inside the vagrant box. It copies the /contents folder from DO276 SVN and images saved as tar.gz in a local cache folder to the vagrant box and makes sure they are installed. In the end the docker daemon has no local images, all are in the private registry.
+The shell script `up-with-contents.sh` was designed to help put container images and lab scripts inside the vagrant box. It copies the /contents folder from DO276 SVN and images saved as tar.gz in a local cache folder (default is $HOME) to the vagrant box and makes sure they are installed. In the end t clean up makes sure the docker daemon has no local images, all are only in the local private registry.
 
 It is supposed to be run with the box halted (but not destroyed) and will up the box. In the end the script logs in as the student user.
+
+To make it clear: Before using the helper script, vagrant up the VM at least one so it is provisioned. Then vagrant halt. Then run the script.
 
