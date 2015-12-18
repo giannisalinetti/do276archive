@@ -1,11 +1,16 @@
 #!/bin/bash
 source /etc/profile.d/enable-python34.sh
 
+chmod -R og+rwx /opt/rh
+
 pip install mysql-connector-python --allow-external mysql-connector-python
 
 set -e
 
-cd ../../apps/python_api/
+rm -fr build
+mkdir -p build
+cp -a ../../python_api/* build
+cd build
 
 APP_FILE="${APP_FILE:-app.py}"
 if [[ "$APP_FILE" ]]; then
