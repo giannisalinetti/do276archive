@@ -3,11 +3,6 @@ source /etc/profile.d/enable-python34.sh
 
 set -e
 
-rm -fr build
-mkdir -p build
-cp -a ../../apps/python_api/* build
-cd build
-
 APP_FILE="${APP_FILE:-app.py}"
 if [[ "$APP_FILE" ]]; then
   if [[ -f "$APP_FILE" ]]; then
