@@ -2,7 +2,7 @@
 
 rm -fr build
 mkdir -p build
-cp -a ../../jee/* build
+cp -a ../../apps/jee/* build
 cd build
 mvn clean install
 if [ $? -eq 0 ]; then
