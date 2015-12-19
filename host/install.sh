@@ -19,9 +19,11 @@ ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 ssh-keyscan -H `hostname` >> ~/.ssh/known_hosts
 chmod 0600 ~/.ssh/known_hosts
 
-#useradd -G wheel student
-useradd -G docker student
+# students need sudo for grading scripts infrastructure
+useradd -G docker,wheel student
 echo 'student' | passwd student --stdin
+
+echo 'redhat' | passwd root --stdin
 
 # Setup Docker image storage (re-do)
 rm -f /etc/sysconfig/docker-storage-setup
