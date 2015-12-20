@@ -1,4 +1,4 @@
-FROM	rhel7.1
+FROM	rhel7
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 ENV 	PHP_VERSION 5.6 

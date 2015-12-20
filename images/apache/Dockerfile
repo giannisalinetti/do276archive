@@ -1,4 +1,5 @@
-FROM	rhel7.1
+# we expect rhel7.2 but use rhel7 to match the RHCSL MySQL image
+FROM	rhel7
 
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
