@@ -7,9 +7,12 @@
 #
 
 SVN_ARTIFACTS=/svn/training/DO276_Container_Apps/artifacts
-IMAGESDIR=$HOME
+IMAGESDIR=$HOME/do276-images
+# Images to be pulled from registry during course:
 # mysql and httpd are from docker.io
 IMAGES="mysql httpd rhel7 openshift.mysql-55-rhel7 do276.mysql-55-rhel7"
+# Those are build during course but will may be needed for grading setup:
+# do276.httpd
 HOSTDIR=$(pwd)
 
 $POWEROFF=$(vagrant status | grep workstation | grep poweroff)

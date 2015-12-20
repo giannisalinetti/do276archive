@@ -5,11 +5,14 @@ echo "Using IP: ${ip}"
 
 yum -y update
 yum -y install vim-enhanced net-tools iproute git docker kubernetes etcd httpd
-# Tools to do builds from source code
+# Tools to do JEE builds from source code
 yum -y install maven java-1.8.0-openjdk-devel
 # XXX Ugly hack, does anyone knows a better way?
 echo 2 | alternatives --config java
 echo 2 | alternatives --config javac
+
+# SCL packages for database and other runtimes
+yum -y install mysql55 
 
 echo "${ip} `hostname`" >> /etc/hosts
 ssh-keygen -f /root/.ssh/id_rsa -t rsa -N ''
