@@ -3,8 +3,8 @@
 sudo rm -rf initdb
 mkdir initdb
 cp -p test/testdata.sql initdb
-sudo chcon -Rt svirt_sandbox_file_t test
-sudo chown -R 27:27 test
+sudo chcon -Rt svirt_sandbox_file_t initdb
+sudo chown -R 27:27 initdb
 
 docker run -d --name test-mysql -p 30306:3306 \
  -e MYSQL_USER=testuser -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=contacts \
