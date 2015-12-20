@@ -27,6 +27,8 @@ wget \
 which && \
     	yum clean all -y
 
+EXPOSE  80
+
 ONBUILD	COPY ./src/ ${HOME}/ 
 
 CMD	["httpd", "-D", "FOREGROUND"]
