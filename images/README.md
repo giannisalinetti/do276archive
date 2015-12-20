@@ -2,3 +2,6 @@
 
 The folders contain the Dockerfiles to create the base images for all
 the language/frameworks used in the solution.
+
+Each folder contains a `build.sh` script to build the container image and a `test.sh` script to test the image, sometimes by creating a derived image.
+
