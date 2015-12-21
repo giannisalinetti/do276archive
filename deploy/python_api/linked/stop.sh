@@ -5,7 +5,7 @@
 # [app was changed to allways delete/recreated tables]
 
 docker stop todoui
-docker stop todoapi
+docker kill todoapi
 docker stop mysql
 docker rm todoui
 docker rm todoapi
