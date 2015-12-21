@@ -74,6 +74,10 @@ New scripts can be added to /content/courses/do276/atomic/grading-scripts.
 
 During development, any content in the host folder is copied to /vagrant inside the box so you can use this to move content in an out the VM. Just don't commit this to the github project.
 
+If you add any new grading scripts to your box remember to set the correct SELinux context:
+
+$ sudo chcon -R --reference=/var/www /content
+
 ## Private Registry
 
 Those steps are already in install.sh (which calls privatereg.sh)
