@@ -1,14 +1,14 @@
 #!/bin/bash -x
 
-sudo rm -rf initdb
-mkdir initdb
-cp -p test/testdata.sql initdb
-sudo chcon -Rt svirt_sandbox_file_t initdb
-sudo chown -R 27:27 initdb
+sudo rm -rf work
+mkdir -p work/init
+cp -p test/testdata.sql work/init
+sudo chcon -Rt svirt_sandbox_file_t work
+sudo chown -R 27:27 work
 
 docker run -d --name test-mysql -p 30306:3306 \
  -e MYSQL_USER=testuser -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=contacts \
- -v $PWD/initdb:/var/lib/mysql/init \
+ -v $PWD/work:/var/lib/mysql/ \
  do276/mysql-55-rhel7
 sleep 9
 source  /opt/rh/mysql55/enable
