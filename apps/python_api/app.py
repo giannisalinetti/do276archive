@@ -71,7 +71,7 @@ def index():
 
 @app.route("/", methods=['GET', 'POST'])
 def hello():
-    return render_template("hello.html")
+    return "ok"
 
 
 @app.route("/todo/api/items", methods=['GET'])
@@ -144,4 +144,4 @@ def save_item():
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 8080))
-    app.run(port=port)
+    app.run(host='0.0.0.0', port=port)
