@@ -11,29 +11,39 @@ class ItemDAO
     private $dsn;
     private $user;
     private $pass;
-    
+
     private $con;
-    
+
     public function __construct($dsn, $user, $pass) {
         $this->dsn = $dsn;
         $this->user = $user;
         $this->pass = $pass;
     }
-    
+
     private function open() {
         $this->con = new \PDO($this->dsn, $this->user, $this->pass, array(
             \PDO::ATTR_PERSISTENT => true
         ));
     }
-    
+
     private function close() {
         $this->con = null;
     }
-    
+
     public function listAll() {
         $this->open();
         $result = array();
         foreach ($this->con->query('select id, description, done from Item') as $row) {
+            $result[] = new \model\Item($row[0], $row[1], $row[2]);
+        }
+        $this->close();
+        return $result;
+    }
+
+    public function findItems($start, $maxResults, $sortFields, $sortDirections) {
+        $this->open();
+        $result = array();
+        foreach ($this->con->query('select * from Item order by ' . $sortFields . ' ' . $sortDirections . ' limit ' . $start . ',' . $maxResults) as $row) {
             $result[] = new \model\Item($row[0], $row[1], $row[2]);
         }
         $this->close();
