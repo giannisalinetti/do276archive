@@ -15,11 +15,11 @@ app = Flask(__name__)
 @app.before_request
 def db_connect():
     try:
-        g.cnx = mysql.connector.connect(user=os.environ.get("MYSQL_DB_USERNAME", 'root'),
-                                        password=os.environ.get("MYSQL_DB_PASSWORD", ''),
-                                        host=os.environ.get("MYSQL_DB_HOST", '127.0.0.1'),
-                                        port=os.environ.get("MYSQL_DB_PORT", '3306'),
-                                        database=os.environ.get("MYSQL_DB_NAME",'todo'))
+        g.cnx = mysql.connector.connect(user=os.environ.get("MYSQL_ENV_MYSQL_USER", 'root'),
+                                        password=os.environ.get("MYSQL_ENV_MYSQL_PASSWORD", ''),
+                                        host=os.environ.get("MYSQL_PORT_3306_TCP_ADDR", '127.0.0.1'),
+                                        port=os.environ.get("MYSQL_PORT_3306_TCP_PORT", '3306'),
+                                        database=os.environ.get("MYSQL_DB_NAME", 'todo'))
         g.cursor = g.cnx.cursor()
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
