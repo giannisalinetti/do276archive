@@ -143,5 +143,5 @@ def save_item():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 30080))
+    port = int(os.environ.get('PORT', 8080))
     app.run(port=port)
