@@ -1,8 +1,8 @@
 #!/bin/sh 
 if [ ! -d "/tmp/work" ]; then
   echo "Create database volume..."
-  mkdir -p /tmp/work/initdb
-  cp db.sql /tmp/work/initdb 
+  mkdir -p /tmp/work/init
+  cp db.sql /tmp/work/init
   sudo chown -R 27:27 /tmp/work
   sudo chcon -Rt svirt_sandbox_file_t /tmp/work
 else
@@ -15,7 +15,6 @@ kubectl create -f pv.yaml
 kubectl create -f dbclaim.yaml
 
 kubectl create -f mysql.yaml
-exit
 kubectl create -f mysql-service.yaml
 kubectl create -f wildfly.yaml
 kubectl create -f wildfly-service.yaml
