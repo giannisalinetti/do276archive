@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # if there was a problem with run.sh delete data dir so the database cab be re-initialized:
-# rm -rf data
-# [app was changed to allways delete/recreated tables]
+# sudo rm -rf data
 
 docker stop todoui
 docker stop todoapi
