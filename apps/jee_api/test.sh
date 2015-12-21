@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# output should be a pretty formatted JSON object
+# Have to run steps on README before testing!
 
-curl -s http://localhost:18080/todo/api/items | jsonlint -f -
+# Expected output should be a pretty formatted JSON object with two items
+
+curl -s http://api.example.com:30080/todo/api/items | python -m json.tool
 
