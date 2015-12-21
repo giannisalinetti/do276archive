@@ -9,7 +9,7 @@ else
   rm -fr initdb/*
 fi
 
-docker run -d --name mysql -e MYSQL_DATABASE=items -e MYSQL_USER=user1 -e MYSQL_PASSWORD=mypa55 -e MYSQL_ROOT_PASSWORD=r00tpa55 -v `pwd`/data:/var/lib/mysql -v `pwd`/initdb:/docker-entrypoint-initdb.d -p 30306:3306 mysql
+docker run -d --name mysql -e MYSQL_DATABASE=items -e MYSQL_USER=user1 -e MYSQL_PASSWORD=mypa55 -e MYSQL_ROOT_PASSWORD=r00tpa55 -v `pwd`/data:/var/lib/mysql -v `pwd`/initdb:/docker-entrypoint-initdb.d -p 30306:3306 do276/mysql-55-rhel7
 
 docker run -d --name=todoapi -e MYSQL_DB_NAME=items --link mysql:mysql -p 30080:8080 do276/todoapi_python
 
