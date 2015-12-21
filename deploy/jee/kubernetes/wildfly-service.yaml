@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata: 
   labels: 
-    name: eap 
-  name: eap 
+    name: todo
+  name: todo
 spec: 
   ports:
     - port: 8080
       nodePort: 30080
   selector:
-    name: eap 
+    name: todo 
   type: NodePort

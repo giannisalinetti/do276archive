@@ -1,19 +1,20 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: eap 
+  name: todo 
   labels: 
-    name: eap
+    name: todo
 spec: 
   containers: 
     - resources:
         limits :
           cpu: 0.5
-      image: todojee
-      name: eap 
+      image: do276/todojee
+      name: todo
       ports: 
         - containerPort: 8080 
-          name: eap 
+          nodePort: 30080
+          name: eap-http 
       env:
         - name: MYSQL_ENV_MYSQL_DATABASE
           value: items

@@ -10,19 +10,4 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/tmp/data01"
-----
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: pv0002
-  labels:
-    type: local
-spec:
-  capacity:
-    storage: 10Mi 
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/tmp/initdb"
-----
+    path: "/tmp/work"

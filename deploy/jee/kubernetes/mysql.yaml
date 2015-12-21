@@ -9,7 +9,7 @@ spec:
     - resources:
         limits :
           cpu: 0.5
-      image: mysql
+      image: do276/mysql-55-rhel7
       name: mysql
       env:
         - name: MYSQL_ROOT_PASSWORD
@@ -26,12 +26,7 @@ spec:
       volumeMounts:
       - mountPath: "/var/lib/mysql"
         name: db-volume 
-      - mountPath: "/docker-entrypoint-initdb.d"
-        name: db-init
   volumes:
     - name: db-volume 
       persistentVolumeClaim:
        claimName: dbclaim 
-    - name: db-init
-      persistentVolumeClaim:
-       claimName: dbinit
