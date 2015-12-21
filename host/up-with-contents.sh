@@ -33,6 +33,7 @@ done
 vagrant up --provider=virtualbox
 
 vagrant ssh -- sudo tar xzf /vagrant/contents.tar.gz -C /
+chcon -R --reference=/var/www /content
 
 # Erros during those rm/rmi are expected if the box is brand new or was properly cleaned up
 vagrant ssh -- "docker rm -f \$(docker ps -qa)"
