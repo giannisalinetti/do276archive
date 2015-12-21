@@ -4,15 +4,29 @@ ip=$(ip addr show eth0 | grep -Po 'inet \K[\d.]+')
 echo "Using IP: ${ip}"
 
 yum -y update
-yum -y install vim-enhanced net-tools iproute git docker kubernetes etcd httpd
+yum -y install vim-enhanced net-tools iproute git docker kubernetes etcd wget httpd iptables-services iptables-utils
 # Tools to do JEE builds from source code
-yum -y install maven java-1.8.0-openjdk-devel
+yum -y install maven java-1.8.0-openjdk-devel mysql-connector-java
 # XXX Ugly hack, does anyone knows a better way?
 echo 2 | alternatives --config java
 echo 2 | alternatives --config javac
 
+# Have Wildfly 9 ready for development and deployment and listening in 30080
+cd /home/student
+export WILDFLY_VERSION="9.0.1.Final"
+echo "Downloading Wildfly $WILDFLY_VERSION"
+wget -q https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz
+tar xzf wildfly-$WILDFLY_VERSION.tar.gz  
+sed -i 's/port-offset:0/port-offset:22000/' ./wildfly-$WILDFLY_VERSION/standalone/configuration/standalone.xml
+sed -i 's/jboss.bind.address:127.0.0.1/jboss.bind.address:0.0.0.0/' ./wildfly-$WILDFLY_VERSION/standalone/configuration/standalone.xml
+./wildfly-$WILDFLY_VERSION/bin/add-user.sh admin jboss#1! --silent
+chown -R student:student ./wildfly-$WILDFLY_VERSION
+
 # SCL packages for database and other runtimes
-yum -y install mysql55 
+yum -y install mysql55 httpd24
+
+sed -i 's/Listen 80/Listen 30000/' /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf
+semanage port -a -t http_port_t -p tcp 30000
 
 echo "${ip} `hostname`" >> /etc/hosts
 ssh-keygen -f /root/.ssh/id_rsa -t rsa -N ''
@@ -69,6 +83,9 @@ SERVICES="kube-proxy kubelet"
 systemctl restart $SERVICES
 systemctl enable $SERVICES
 # No need for flannel because we are using a single host
+
+# Well-known FQDN for the To Do List application back end
+echo '127.0.0.1 api.example.com' >> /etc/hosts
 
 # Setup grading script infrastructure
 bash /vagrant/grading.sh
