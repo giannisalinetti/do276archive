@@ -15,11 +15,11 @@ app = Flask(__name__)
 @app.before_request
 def db_connect():
     try:
-        g.cnx = mysql.connector.connect(user=os.environ.get("MYSQL_DB_USERNAME", 'root'),
-                                        password=os.environ.get("MYSQL_DB_PASSWORD", ''),
-                                        host=os.environ.get("MYSQL_DB_HOST", '127.0.0.1'),
-                                        port=os.environ.get("MYSQL_DB_PORT", '3306'),
-                                        database=os.environ.get("MYSQL_DB_NAME",'todo'))
+        g.cnx = mysql.connector.connect(user=os.environ.get("MYSQL_ENV_MYSQL_USER", 'root'),
+                                        password=os.environ.get("MYSQL_ENV_MYSQL_PASSWORD", ''),
+                                        host=os.environ.get("MYSQL_PORT_3306_TCP_ADDR", '127.0.0.1'),
+                                        port=os.environ.get("MYSQL_PORT_3306_TCP_PORT", '3306'),
+                                        database=os.environ.get("MYSQL_DB_NAME", 'todo'))
         g.cursor = g.cnx.cursor()
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -43,21 +43,26 @@ def db_disconnect(response):
 
 
 def query_db(query, args=(), one=False):
-    g.cursor.execute(query, args)
-    rv = [dict((g.cursor.description[idx][0], value)
-               for idx, value in enumerate(row)) for row in g.cursor.fetchall()]
-    return (rv[0] if rv else None) if one else rv
+    try:
+        g.cursor.execute(query, args)
+        rv = [dict((g.cursor.description[idx][0], value)
+                   for idx, value in enumerate(row)) for row in g.cursor.fetchall()]
+    except mysql.connector.Error as err:
+        print("Database Error:")
+        print(err)
+    else:
+        return (rv[0] if rv else None) if one else rv
 
 
 def count_items():
-    query = "SELECT COUNT(*) FROM todo.Item"
+    query = "SELECT COUNT(*) FROM Item"
     g.cursor.execute(query)
     data = g.cursor.fetchone()[0]
     return data
 
 
 def find_items(start_position, max_results, sort_fields, sort_directions):
-    query = "SELECT * FROM todo.Item ORDER BY todo.Item." + sort_fields + " " + sort_directions + " limit " + \
+    query = "SELECT * FROM Item ORDER BY Item." + sort_fields + " " + sort_directions + " limit " + \
             str(start_position) + "," + str(max_results)
 
     result = query_db(query)
@@ -71,7 +76,7 @@ def index():
 
 @app.route("/", methods=['GET', 'POST'])
 def hello():
-    return render_template("hello.html")
+    return render_template("index.html")
 
 
 @app.route("/todo/api/items", methods=['GET'])
@@ -99,7 +104,7 @@ def list_items():
 
 @app.route("/todo/api/items/<id>", methods=['DELETE'])
 def delete_item(id):
-    query = "DELETE FROM todo.Item WHERE todo.Item.id = " + id
+    query = "DELETE FROM Item WHERE Item.id = " + id
     g.cursor.execute(query)
     g.cnx.commit()
     resp = Response("Deleted", status=200, mimetype='application/json')
@@ -108,7 +113,7 @@ def delete_item(id):
 
 @app.route("/todo/api/items/<id>", methods=['GET'])
 def get_item(id):
-    result = query_db("SELECT * FROM todo.Item WHERE todo.Item.id = " + id)
+    result = query_db("SELECT * FROM Item WHERE Item.id = " + id)
     dict = result[0]
     if dict['done']:
         dict['done'] = True
@@ -131,9 +136,9 @@ def save_item():
     }
 
     if not item.get('id', ""):
-        query = "INSERT INTO todo.Item(description, done) VALUES(%s,%s)"
+        query = "INSERT INTO Item(description, done) VALUES(%s,%s)"
     else:
-        query = "UPDATE todo.Item SET description = %s, done = %s WHERE todo.Item.id = " + str(item.get('id', ""))
+        query = "UPDATE Item SET description = %s, done = %s WHERE Item.id = " + str(item.get('id', ""))
     args = (item.get('description', ""), item.get('done', ""))
     g.cursor.execute(query, args)
     g.cnx.commit()
@@ -143,5 +148,5 @@ def save_item():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 30080))
-    app.run(port=port)
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port)
