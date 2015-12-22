@@ -55,14 +55,14 @@ def query_db(query, args=(), one=False):
 
 
 def count_items():
-    query = "SELECT COUNT(*) FROM items.Item"
+    query = "SELECT COUNT(*) FROM Item"
     g.cursor.execute(query)
     data = g.cursor.fetchone()[0]
     return data
 
 
 def find_items(start_position, max_results, sort_fields, sort_directions):
-    query = "SELECT * FROM items.Item ORDER BY items.Item." + sort_fields + " " + sort_directions + " limit " + \
+    query = "SELECT * FROM Item ORDER BY Item." + sort_fields + " " + sort_directions + " limit " + \
             str(start_position) + "," + str(max_results)
 
     result = query_db(query)
@@ -104,7 +104,7 @@ def list_items():
 
 @app.route("/todo/api/items/<id>", methods=['DELETE'])
 def delete_item(id):
-    query = "DELETE FROM items.Item WHERE items.Item.id = " + id
+    query = "DELETE FROM Item WHERE Item.id = " + id
     g.cursor.execute(query)
     g.cnx.commit()
     resp = Response("Deleted", status=200, mimetype='application/json')
@@ -113,7 +113,7 @@ def delete_item(id):
 
 @app.route("/todo/api/items/<id>", methods=['GET'])
 def get_item(id):
-    result = query_db("SELECT * FROM items.Item WHERE items.Item.id = " + id)
+    result = query_db("SELECT * FROM Item WHERE Item.id = " + id)
     dict = result[0]
     if dict['done']:
         dict['done'] = True
@@ -136,9 +136,9 @@ def save_item():
     }
 
     if not item.get('id', ""):
-        query = "INSERT INTO items.Item(description, done) VALUES(%s,%s)"
+        query = "INSERT INTO Item(description, done) VALUES(%s,%s)"
     else:
-        query = "UPDATE items.Item SET description = %s, done = %s WHERE items.Item.id = " + str(item.get('id', ""))
+        query = "UPDATE Item SET description = %s, done = %s WHERE Item.id = " + str(item.get('id', ""))
     args = (item.get('description', ""), item.get('done', ""))
     g.cursor.execute(query, args)
     g.cnx.commit()
