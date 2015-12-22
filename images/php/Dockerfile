@@ -73,8 +73,8 @@ RUN 	sed -i -f /opt/app-root/etc/httpdconf.sed /opt/rh/httpd24/root/etc/httpd/co
 USER	appuser
 WORKDIR	${HOME}
 
-ADD	./build.sh ./
+ADD	./compile.sh ./
 ONBUILD COPY . ${HOME}/
-ONBUILD RUN ./build.sh 
+ONBUILD RUN ./compile.sh 
 
 CMD	["echo", "You must create your own container with your app source code."]
