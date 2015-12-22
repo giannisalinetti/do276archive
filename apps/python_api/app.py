@@ -69,11 +69,6 @@ def find_items(start_position, max_results, sort_fields, sort_directions):
     return result
 
 
-@app.route("/todo", methods=['GET', 'POST'])
-def index():
-    return render_template("index.html")
-
-
 @app.route("/", methods=['GET', 'POST'])
 def hello():
     return "ok"
