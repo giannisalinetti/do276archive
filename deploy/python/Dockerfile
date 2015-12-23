@@ -6,3 +6,4 @@ USER	appuser
 ADD	./run.sh ./
 
 CMD	["./run.sh"]
+#CMD	["md5sum", "/dev/zero", ">/dev/null"]
