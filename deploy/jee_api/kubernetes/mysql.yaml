@@ -9,7 +9,7 @@ spec:
     - resources:
         limits :
           cpu: 0.5
-      image: mysql
+      image: do276/mysql-55-rhel7
       name: mysql
       env:
         - name: MYSQL_ROOT_PASSWORD
@@ -24,9 +24,9 @@ spec:
         - containerPort: 3306
           name: mysql
       volumeMounts:
-      - mountPath: "/var/lib/mysql"
+      - mountPath: "/var/lib/mysql/data"
         name: db-volume 
-      - mountPath: "/docker-entrypoint-initdb.d"
+      - mountPath: "/var/lib/mysql/init"
         name: db-init
   volumes:
     - name: db-volume 

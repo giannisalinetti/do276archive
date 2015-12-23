@@ -6,8 +6,23 @@ metadata:
     type: local
 spec:
   capacity:
-    storage: 100Mi 
+    storage: 10Mi 
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/tmp/work"
+    path: "/tmp/work/data"
+----
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv0002
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 1Mi 
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/tmp/work/init"
+----

@@ -9,7 +9,7 @@ spec:
     - resources:
         limits :
           cpu: 0.5
-      image: todojee
+      image: do276/todoapi_jee
       name: eap 
       ports: 
         - containerPort: 8080 
