@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: todo 
+  labels: 
+    name: todo
+spec: 
+  containers: 
+    - resources:
+        limits :
+          cpu: 0.5
+      image: do276/todopython
+      name: todo
+      ports: 
+        - containerPort: 8080 
+          nodePort: 30080
+          name: python-http 
+      env:
+        - name: MYSQL_ENV_MYSQL_DATABASE
+          value: items

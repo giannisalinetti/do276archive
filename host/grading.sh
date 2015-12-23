@@ -5,7 +5,8 @@ systemctl start httpd
 systemctl enable httpd
 
 unzip -o /vagrant/grading.zip -d /
-#ln -s /usr/local/bin/lab /usr/local/bin/demo
+rm -rf /usr/local/bin/demo
+ln -s /usr/local/bin/lab /usr/local/bin/demo
 chcon -R --reference=/var/www /content
 
 systemctl restart httpd
