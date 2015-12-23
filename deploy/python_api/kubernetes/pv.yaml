@@ -6,11 +6,11 @@ metadata:
     type: local
 spec:
   capacity:
-    storage: 100Mi 
+    storage: 10Mi 
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/tmp/data01"
+    path: "/tmp/work/data"
 ----
 kind: PersistentVolume
 apiVersion: v1
@@ -20,9 +20,9 @@ metadata:
     type: local
 spec:
   capacity:
-    storage: 10Mi 
+    storage: 1Mi 
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/tmp/initdb"
+    path: "/tmp/work/init"
 ----
