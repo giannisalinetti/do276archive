@@ -2,7 +2,7 @@
 
 set -e
 echo "Attempting to run compose in the following directory..."
-CD todo/api
+cd todo/api
 echo $PWD
 if [ -f composer.json ]; then
   echo "Found 'composer.json', installing dependencies using composer.phar... "
