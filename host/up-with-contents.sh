@@ -10,7 +10,7 @@ SVN_ARTIFACTS=/svn/training/DO276_Container_Apps/artifacts
 IMAGESDIR=$HOME/do276-images
 # Images to be pulled from registry during course:
 # mysql and httpd are from docker.io
-IMAGES="mysql httpd rhel7 openshift.mysql-55-rhel7 do276.mysql-55-rhel7"
+IMAGES="mysql-5.5 httpd rhel7.2 openshift.mysql-55-rhel7 do276.mysql-55-rhel7"
 # Those are build during course but will may be needed for grading setup:
 # do276.httpd
 HOSTDIR=$(pwd)
@@ -33,6 +33,8 @@ done
 vagrant up --provider=virtualbox
 
 vagrant ssh -- sudo tar xzf /vagrant/contents.tar.gz -C /
+vagrant ssh -- sudo rm -rf /usr/local/bin/demo
+vagrant ssh -- sudo ln -s /usr/local/bin/lab /usr/local/bin/demo
 chcon -R --reference=/var/www /content
 
 # Erros during those rm/rmi are expected if the box is brand new or was properly cleaned up
