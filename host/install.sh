@@ -5,6 +5,12 @@ echo "Using IP: ${ip}"
 
 yum -y update
 yum -y install vim-enhanced net-tools iproute git docker kubernetes etcd wget httpd iptables-services iptables-utils
+systemctl disable firewalld
+systemctl stop firewalld
+cp /vagrant/iptables /etc/sysconfig/iptables
+systemctl start iptables
+systemctl enable iptables
+
 # Tools to do JEE builds from source code
 yum -y install maven java-1.8.0-openjdk-devel mysql-connector-java
 # XXX Ugly hack, does anyone knows a better way?
@@ -71,8 +77,6 @@ systemctl start docker
 systemctl enable docker
 
 # Setup Kubernetes for anonymous access
-systemctl disable firewalld
-systemctl stop firewalld
 sed -i 's/,SecurityContextDeny,ServiceAccount,ResourceQuota"/,SecurityContextDeny,ResourceQuota"/' /etc/kubernetes/apiserver
 SERVICES="etcd kube-apiserver kube-controller-manager kube-scheduler"
 # Start Kubernetes master
@@ -85,7 +89,7 @@ systemctl enable $SERVICES
 # No need for flannel because we are using a single host
 
 # Well-known FQDN for the To Do List application back end
-echo '127.0.0.1 api.example.com' >> /etc/hosts
+echo '127.0.0.1 api.lab.example.com' >> /etc/hosts
 
 # Setup grading script infrastructure
 bash /vagrant/grading.sh

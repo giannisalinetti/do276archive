@@ -17,11 +17,7 @@ find /etc/docker-registry.yml -type f -exec sed -i "0,/_env:SEARCH_BACKEND/ s/_e
  
 systemctl enable docker-registry
 systemctl start docker-registry
-#systemctl daemon-reload
-systemctl enable firewalld
-systemctl start firewalld
-firewall-cmd --zone=public --add-port=5000/tcp --permanent
-firewall-cmd --reload
+
 
 #Trusting the certificate file
 
@@ -40,9 +36,9 @@ rm -rf /tmp/docker-registry.db
 
 #Configure the docker daemon to use the internal registry
 
-echo "127.0.0.1 servera.example.com" >> /etc/hosts
-sed -i "s/ADD_REGISTRY='/ADD_REGISTRY='--add-registry servera.example.com:5000 /" /etc/sysconfig/docker
-sed -i "s/# INSECURE_REGISTRY='--insecure-registry/INSECURE_REGISTRY='--insecure-registry servera.example.com:5000/" /etc/sysconfig/docker
+echo "127.0.0.1 servera.lab.example.com" >> /etc/hosts
+sed -i "s/ADD_REGISTRY='/ADD_REGISTRY='--add-registry servera.lab.example.com:5000 /" /etc/sysconfig/docker
+sed -i "s/# INSECURE_REGISTRY='--insecure-registry/INSECURE_REGISTRY='--insecure-registry servera.lab.example.com:5000/" /etc/sysconfig/docker
 
 # Add steps to preload images?
 

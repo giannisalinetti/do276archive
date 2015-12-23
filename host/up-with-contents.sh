@@ -10,13 +10,13 @@ SVN_ARTIFACTS=/svn/training/DO276_Container_Apps/artifacts
 IMAGESDIR=$HOME/do276-images
 # Images to be pulled from registry during course:
 # mysql and httpd are from docker.io
-IMAGES="mysql-5.5 httpd rhel7.2 openshift.mysql-55-rhel7 do276.mysql-55-rhel7"
+IMAGES="mysql-5.5 httpd-2.4 rhel7.2 openshift.mysql-55-rhel7 do276.mysql-55-rhel7"
 # Those are build during course but will may be needed for grading setup:
 # do276.httpd
 HOSTDIR=$(pwd)
 
-$POWEROFF=$(vagrant status | grep workstation | grep poweroff)
-if [ "$POWEROFF" != "" ]; then
+POWEROFF=$(vagrant status | grep workstation | grep poweroff)
+if [ "$POWEROFF" = "" ]; then
   echo "Needs to be run with the workstaton box off." 1>&2
   exit 1
 fi
@@ -35,9 +35,13 @@ vagrant up --provider=virtualbox
 vagrant ssh -- sudo tar xzf /vagrant/contents.tar.gz -C /
 vagrant ssh -- sudo rm -rf /usr/local/bin/demo
 vagrant ssh -- sudo ln -s /usr/local/bin/lab /usr/local/bin/demo
-chcon -R --reference=/var/www /content
+vagrant ssh -- sudo chcon -R --reference=/var/www /content
 
 # Erros during those rm/rmi are expected if the box is brand new or was properly cleaned up
+vagrant ssh -- "sudo systemctl stop docker-registry"
+vagrant ssh -- "sudo rm -rf /var/lib/docker-registry/*"
+vagrant ssh -- "sudo rm -rf /tmp/docker-registry.db"
+vagrant ssh -- "sudo systemctl start docker-registry"
 vagrant ssh -- "docker rm -f \$(docker ps -qa)"
 vagrant ssh -- "docker rmi -f \$(docker images -q)"
 vagrant ssh -- "cd /vagrant ; for i in $IMAGES ; do docker load -i \$i.tar.gz ; done"
