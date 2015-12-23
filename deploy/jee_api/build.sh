@@ -2,6 +2,7 @@
 
 rm -fr build
 mkdir -p build
+sudo rm -fr linked/work
 cp -a ../../apps/jee_api/* build
 cd build
 mvn clean install
