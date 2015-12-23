@@ -7,7 +7,7 @@ APP_FILE="${APP_FILE:-app.py}"
 if [[ "$APP_FILE" ]]; then
   if [[ -f "$APP_FILE" ]]; then
     echo "---> Running application from Python script ($APP_FILE) ..."
-    exec python "$APP_FILE"
+    exec python -u "$APP_FILE"
   fi
   echo "WARNING: file '$APP_FILE' not found."
 fi
