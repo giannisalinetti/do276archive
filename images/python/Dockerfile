@@ -18,12 +18,15 @@ update -y && \
 --enablerepo="rhel-server-rhscl-7-rpms" \
 install -y --setopt=tsflags=nodocs \
 bsdtar \
+iputils \
 less \
 libcurl-devel \
 libxml2-devel \
 libxslt-devel \
 mariadb-devel \
 mariadb-libs \
+net-tools \
+nmap-ncat \
 openssl-devel \
 postgresql-devel \
 procps-ng \
@@ -34,6 +37,7 @@ rh-python34-python-pip \
 scl-utils \
 sqlite-devel \
 tar \
+traceroute \
 unzip \
 wget \
 which \

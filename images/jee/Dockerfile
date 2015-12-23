@@ -14,12 +14,15 @@ update -y && \
 install -y --setopt=tsflags=nodocs \
 augeas \
 bsdtar \
+iputils \
 java-1.8.0-openjdk-devel \
 less \
+net-tools \
 nmap-ncat \
 procps-ng \
 saxon \
 tar \
+traceroute \
 unzip \
 xmlstarlet && \
 	yum clean all
