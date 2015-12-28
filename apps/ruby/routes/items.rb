@@ -1,14 +1,37 @@
 # encoding: UTF-8
 
 get '/todo/api/items' do
+    total = Item.count()
+    
+    sortFields = params['sortFields']
+    sortDirections = params['sortDirections']
+    page = Integer(params['page'])
+    
     items = Item.all
+
+    page = (page > 0) ? page : 1 
+    #XXX no form of paging is working :-(
+    #items.page(page).per_page(10)
+    #items.offset(10 * (page - 1))
+    #items.limit(10)
+
+    if (sortFields == 'id')
+        items = items.order(id: (sortDirections == 'desc') ? :desc : :asc)
+    elsif (sortFields == 'description')
+        items = items.order(description: (sortDirections == 'desc') ? :desc : :asc)
+    elsif (sortFields == 'done')
+        items = items.order(done: (sortDirections == 'desc') ? :desc : :asc)
+    elsif
+        items = items.order(id: :asc)
+    end        
+
     response = { 
-        "currentPage" => 1,
+        "currentPage" => page,
         "list" => items,
         "pageSize" => 10,
-        "sortDirections" => "asc",
-        "sortFields" => "id",
-        "totalResults" => items.size
+        "sortDirections" => sortDirections,
+        "sortFields" => sortFields,
+        "totalResults" => total
     }
     return response.to_json
 end

@@ -2,6 +2,8 @@
 require 'json'
 require 'sinatra'
 require 'active_record'
+require 'will_paginate'
+require 'will_paginate/active_record'
 
 configure do
     set :port, 30000    
