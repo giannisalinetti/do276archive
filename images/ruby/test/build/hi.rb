@@ -4,6 +4,6 @@ set :bind, '0.0.0.0'
 set :port, 8080
 
 get '/hi' do
-  "Hello World!"
+  "Hello there"
 end
 

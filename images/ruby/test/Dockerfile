@@ -1,4 +1,4 @@
-FROM	cl276/ruby
+FROM	do276/ruby
 
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 

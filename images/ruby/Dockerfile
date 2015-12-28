@@ -1,4 +1,4 @@
-FROM	rhel7
+FROM	rhel7.2
 
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
@@ -61,8 +61,12 @@ RUN 	echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" && \
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 #RUN	bundle config —global frozen 1
-ONBUILD	COPY Gemfile ${HOME}/
+
+#ONBUILD	COPY Gemfile ${HOME}/
+#ONBUILD	RUN scl enable rh-ruby22 'bundle install'
+#ONBUILD	COPY . ${HOME}/ 
+
+ONBUILD	COPY build/* ${HOME}/
 ONBUILD	RUN scl enable rh-ruby22 'bundle install'
-ONBUILD	COPY . ${HOME}/ 
 
 CMD	["irb"]
