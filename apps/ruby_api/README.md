@@ -22,3 +22,9 @@ May need to change MariaDB package names to use SCL packages.
 
 * Have front end installed into http24-httpd
 
+* Access app as http://localhost/todo
+
+* You can also test the API as:
+
+`curl -s 'http://localhost:30080/todo/api/items?sortFields=id&sortDirections=asc&page=1' | python -m json.tool`
+

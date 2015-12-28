@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source /opt/rh/mysql55/enable
 source /opt/rh/rh-ruby22/enable 
 
 export MYSQL_PORT_3306_TCP_ADDR=127.0.0.1
