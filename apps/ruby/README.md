@@ -8,14 +8,21 @@ May need to change MariaDB package names to use SCL packages.
 
 * Have mysqh55 from SCL installed and database created and populated using scripts from ../jee/src/main/resources/sql/
 
-`$ sudo su -
-# source /opt/rh/mysql55/enable
-# mysql
-mysql> create database items;
-mysql> grant all on items.* to user1@"%" identified by 'mypa55' ;
-mysql> grant all on items.* to user1@"127.0.0.1" identified by 'mypa55' ;
-$ mysql -h127.0.0.1 -uuser1 -pmypa55 items < ../jee/src/main/resources/sql/create.sql\
-$ mysql -h127.0.0.1 -uuser1 -pmypa55 items < ../jee/src/main/resources/sql/load.sql `
+`$ sudo su -`
+
+`# source /opt/rh/mysql55/enable`
+
+`# mysql`
+
+`mysql> create database items;`
+
+`mysql> grant all on items.* to user1@"%" identified by 'mypa55' ;`
+
+`mysql> grant all on items.* to user1@"127.0.0.1" identified by 'mypa55' ;`
+
+`$ mysql -h127.0.0.1 -uuser1 -pmypa55 items < ../jee/src/main/resources/sql/create.sql`
+
+`$ mysql -h127.0.0.1 -uuser1 -pmypa55 items < ../jee/src/main/resources/sql/load.sql `
 
 * Install required packages
 
@@ -23,8 +30,9 @@ $ mysql -h127.0.0.1 -uuser1 -pmypa55 items < ../jee/src/main/resources/sql/load.
 
 * Enable ruby and mysql from SCL:
 
-`$  source /opt/rh/mysql55/enable
-$ source /opt/rh/rh-ruby22/enable`
+`$  source /opt/rh/mysql55/enable`
+
+`$ source /opt/rh/rh-ruby22/enable`
 
 * Install gems
 
