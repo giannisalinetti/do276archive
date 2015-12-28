@@ -8,7 +8,7 @@ May need to change MariaDB package names to use SCL packages.
 
 * Install required packages
 
-`sudo yum -y install rh-ruby22 rh-ruby22-rubygem-json rh-ruby22-ruby-devel mariadb-devel`
+`sudo yum -y install rh-ruby22 rh-ruby22-rubygem-json rh-ruby22-ruby-devel mysql55 mysql55-scldevel`
 
 * Install gems
 
