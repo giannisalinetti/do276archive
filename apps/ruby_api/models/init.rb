@@ -8,6 +8,6 @@ ActiveRecord::Base.establish_connection(
   port:     ENV['MYSQL_PORT_3306_TCP_PORT'],
   username: ENV['MYSQL_ENV_MYSQL_USER'],
   password: ENV['MYSQL_ENV_MYSQL_PASSWORD'],
-  database: ENV['MYSQL_DB_NAME'],
+  database: ENV['MYSQL_ENV_MYSQL_DATABASE'],
 )
 

@@ -44,10 +44,10 @@ May need to change MariaDB package names to use SCL packages.
 
 `ruby main.rb`
 
-* Access app as http://localhost:30000/todo
+* Access app as http://localhost:30080/todo
 
 
 * You can also test only the API as: 
 
-`curl -s 'http://localhost:30000/todo/api/items?sortFields=id&sortDirections=asc&page=1' | python -m json.tool`
+`curl -s 'http://localhost:30080/todo/api/items?sortFields=id&sortDirections=asc&page=1' | python -m json.tool`
 

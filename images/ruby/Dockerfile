@@ -28,11 +28,16 @@ mariadb-devel \
 mariadb-libs \
 openssl-devel \
 postgresql-devel \
+gcc \
+make \
+binuils \
 procps-ng \
 rh-ruby22 \
 rh-ruby22-ruby-devel \
+rh-ruby22-rubygems \
 rh-ruby22-rubygem-rake \
 rh-ruby22-rubygem-bundler \
+rh-ruby22-rubygem-json \
 scl-utils \
 sqlite-devel \
 tar \
@@ -55,9 +60,10 @@ ADD	./enablerh-ruby22.sh /etc/profile.d/
 
 USER	appuser
 WORKDIR	${HOME}
-RUN 	echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" && \
-	scl enable rh-ruby22 'bundle config --global path "$GEM_HOME"' && \
-	scl enable rh-ruby22 'bundle config --global bin "$GEM_HOME/bin"' 
+RUN 	echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" 
+#RUN 	echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" && \
+#	scl enable rh-ruby22 'bundle config --global path "$GEM_HOME"' && \
+#	scl enable rh-ruby22 'bundle config --global bin "$GEM_HOME/bin"' 
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 #RUN	bundle config —global frozen 1
@@ -66,7 +72,8 @@ RUN 	echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" && \
 #ONBUILD	RUN scl enable rh-ruby22 'bundle install'
 #ONBUILD	COPY . ${HOME}/ 
 
-ONBUILD	COPY build/* ${HOME}/
+ONBUILD	COPY run.sh build ${HOME}/
+#ONBUILD	RUN scl enable rh-ruby22 'gem install bundler'
 ONBUILD	RUN scl enable rh-ruby22 'bundle install'
 
 CMD	["irb"]
