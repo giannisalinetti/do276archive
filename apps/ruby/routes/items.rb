@@ -7,13 +7,8 @@ get '/todo/api/items' do
     sortDirections = params['sortDirections']
     page = Integer(params['page'])
     
-    items = Item.all
-
-    page = (page > 0) ? page : 1 
-    #XXX no form of paging is working :-(
-    #items.page(page).per_page(10)
-    #items.offset(10 * (page - 1))
-    #items.limit(10)
+    #items = Item.all
+    items = Item
 
     if (sortFields == 'id')
         items = items.order(id: (sortDirections == 'desc') ? :desc : :asc)
@@ -24,6 +19,12 @@ get '/todo/api/items' do
     elsif
         items = items.order(id: :asc)
     end        
+
+    page = (page > 0) ? page : 1 
+    #XXX no form of paging is working :-(
+    #items.page(page).per_page(10)
+    items.offset(10 * (page - 1))
+    items.limit(10)
 
     response = { 
         "currentPage" => page,
