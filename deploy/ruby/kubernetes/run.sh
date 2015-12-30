@@ -1,4 +1,7 @@
-#!/bin/sh 
+#!/bin/bash
+
+sudo rm -rf /tmp/work
+
 if [ ! -d "/tmp/work" ]; then
   echo "Create database volume..."
   mkdir -p /tmp/work/init /tmp/work/data
