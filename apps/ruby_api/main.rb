@@ -10,6 +10,7 @@ configure do
     enable :cross_origin
     set :allow_origin, :any
     set :allow_methods, [:get, :post, :delete, :options]
+    set :bind, '0.0.0.0'
     set :port, 30080
 end
 

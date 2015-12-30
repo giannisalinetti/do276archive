@@ -6,7 +6,8 @@ require 'will_paginate'
 require 'will_paginate/active_record'
 
 configure do
-    set :port, 8080    
+    set :bind, '0.0.0.0'
+    set :port, 30080
 end
 
 get '/todo' do
