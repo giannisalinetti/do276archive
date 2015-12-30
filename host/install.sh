@@ -4,7 +4,7 @@ ip=$(ip addr show eth0 | grep -Po 'inet \K[\d.]+')
 echo "Using IP: ${ip}"
 
 yum -y update
-yum -y install vim-enhanced net-tools iproute git docker kubernetes etcd wget httpd iptables-services iptables-utils
+yum -y install vim-enhanced net-tools iproute git docker kubernetes etcd wget httpd iptables-services iptables-utils 
 systemctl disable firewalld
 systemctl stop firewalld
 cp /vagrant/iptables /etc/sysconfig/iptables
@@ -29,11 +29,16 @@ sed -i 's/jboss.bind.address:127.0.0.1/jboss.bind.address:0.0.0.0/' ./wildfly-$W
 chown -R student:student ./wildfly-$WILDFLY_VERSION
 
 # SCL packages for database and other runtimes
-yum -y install mysql55 httpd24
+# MySQL 5.5 from SCL does not includes mysqlclient lib
+yum -y install httpd24 mysql55 mysql55-scldevel mysql55-devel mariadb-libs mariadb-devel
 
 sed -i 's/Listen 80/Listen 30000/' /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf
 semanage port -a -t http_port_t -p tcp 30000
 
+yum -y install rh-ruby22 rh-ruby22-rubygem-json rh-ruby22-ruby-devel rh-ruby22-rubygem-bundler
+
+
+# Shouldn't Vagrant do this by itself?
 echo "${ip} `hostname`" >> /etc/hosts
 ssh-keygen -f /root/.ssh/id_rsa -t rsa -N ''
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
