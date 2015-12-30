@@ -61,6 +61,7 @@ ADD	./enablerh-ruby22.sh /etc/profile.d/
 USER	appuser
 WORKDIR	${HOME}
 RUN 	echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" 
+# chaging bundle config breaks json gem
 #RUN 	echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" && \
 #	scl enable rh-ruby22 'bundle config --global path "$GEM_HOME"' && \
 #	scl enable rh-ruby22 'bundle config --global bin "$GEM_HOME/bin"' 
@@ -73,7 +74,6 @@ RUN 	echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc"
 #ONBUILD	COPY . ${HOME}/ 
 
 ONBUILD	COPY run.sh build ${HOME}/
-#ONBUILD	RUN scl enable rh-ruby22 'gem install bundler'
 ONBUILD	RUN scl enable rh-ruby22 'bundle install'
 
 CMD	["irb"]

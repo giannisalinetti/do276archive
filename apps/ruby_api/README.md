@@ -16,9 +16,9 @@ Based on Sinatra 1.4 and ActiveRecord 4.2 using mysq2 handler. They require nati
 
 `ruby main.rb`
 
-* Have front end installed into http24-httpd
+* Have front end installed into http24-httpd and configure it to listen port 30000
 
-* Access app as http://localhost/todo
+* Access app as http://localhost:30000/todo
 
 * You can also test the API as:
 

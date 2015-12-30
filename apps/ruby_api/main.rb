@@ -7,11 +7,12 @@ require 'will_paginate'
 require 'will_paginate/active_record'
 
 configure do
+    set :bind, '0.0.0.0'
+    set :port, 30080
+
     enable :cross_origin
     set :allow_origin, :any
     set :allow_methods, [:get, :post, :delete, :options]
-    set :bind, '0.0.0.0'
-    set :port, 30080
 end
 
 options "*" do
