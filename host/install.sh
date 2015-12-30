@@ -5,11 +5,15 @@ echo "Using IP: ${ip}"
 
 yum -y update
 yum -y install vim-enhanced net-tools iproute git docker kubernetes etcd wget httpd iptables-services iptables-utils 
+
+# XXX need to find correct config to run with iptables service on
 systemctl disable firewalld
 systemctl stop firewalld
-cp /vagrant/iptables /etc/sysconfig/iptables
-systemctl start iptables
-systemctl enable iptables
+#cp /vagrant/iptables /etc/sysconfig/iptables
+#systemctl start iptables
+#systemctl enable iptables
+systemctl stop iptables
+systemctl disable iptables
 
 # Tools to do JEE builds from source code
 yum -y install maven java-1.8.0-openjdk-devel mysql-connector-java
