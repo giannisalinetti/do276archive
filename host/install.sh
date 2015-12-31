@@ -41,6 +41,7 @@ semanage port -a -t http_port_t -p tcp 30000
 
 yum -y install rh-ruby22 rh-ruby22-rubygem-json rh-ruby22-ruby-devel rh-ruby22-rubygem-bundler
 
+yum -y install nodejs010-nodejs nodejs010-npm 
 
 # Shouldn't Vagrant do this by itself?
 echo "${ip} `hostname`" >> /etc/hosts
