@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: todo 
+  name: todoapi 
   labels: 
-    name: todo
+    name: todoapi
 spec: 
   containers: 
     - resources:
         limits :
           cpu: 0.5
-      image: do276/todonodejs
-      name: todo
+      image: do276/todoapi_nodejs
+      name: todoapi
       ports: 
         - containerPort: 30080
           nodePort: 30080
