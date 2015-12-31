@@ -8,9 +8,8 @@ Run as `node app.js`
 
 * Don't do pagination yet.
 
-* Runs on port 8080, should be 300080 to match vbox and containers
-
 * Database connection parameters hardcoded (as a novice developer would usually do).
 
 * There is a lot of boiler plate code in the controller and the model. There should be a way to have more centralized error handling.
 
+* Access app as http://localhost:30080/todo

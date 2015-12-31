@@ -20,13 +20,6 @@ exports.context = function(server, path, itemsModel) {
 exports.list = function(req, res, next) {
     model.listAll(function(err, items) {
         if (err) {
-            // XXX how the jee_api returns errors?
-            /*
-            res.status(500);
-            res.json({
-                error: err
-            });
-            */
             next(err);
         }
         else {

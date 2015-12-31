@@ -4,9 +4,9 @@ var controller = require('./controllers/items');
 
 var model = require('./models/items');
 model.connect({
-    dbname: "todo",
-    username: "todo",
-    password: "redhat",
+    dbname: "items",
+    username: "user1",
+    password: "mypa55",
     params: {
         host: '127.0.0.1',
         dialect: 'mysql'
@@ -18,13 +18,16 @@ function(err) {
 
 var server = restify.createServer() 
     .use(restify.fullResponse())
-    .use(restify.bodyParser())
-    .use(restify.CORS());
+    .use(restify.bodyParser());
     
-//server.get({ path: "/todo/api/items" }, items.list);
 controller.context(server, '/todo/api', model); 
 
-var port = process.env.PORT || 8080;
+server.get(/\/todo\/?.*/, restify.serveStatic({
+    'directory': __dirname,
+    'default': 'index.html'
+ }));
+
+var port = process.env.PORT || 30080;
 server.listen(port, function (err) {
     if (err)
         console.error(err);
