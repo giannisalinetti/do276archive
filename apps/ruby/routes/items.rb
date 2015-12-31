@@ -1,11 +1,6 @@
 # encoding: UTF-8
 
-require 'logger'
-
 get '/todo/api/items' do
-
-    logger = Logger.new(STDOUT)
-    logger.level = Logger::INFO
 
     total = Item.count()
     
@@ -13,11 +8,8 @@ get '/todo/api/items' do
     sortDirections = params['sortDirections']
     page = Integer(params['page'])
     
-    logger.info("creating query object")
-    #items = Item.all
-    items = Item
+    items = Item.all
 
-    logger.info("add sorting")
     if (sortFields == 'id')
         items = items.order(id: (sortDirections == 'desc') ? :desc : :asc)
     elsif (sortFields == 'description')
@@ -28,14 +20,12 @@ get '/todo/api/items' do
         items = items.order(id: :asc)
     end        
 
-    logger.info("add paging")
     page = (page > 0) ? page : 1 
     #XXX no form of paging is working :-(
     #items.page(page).per_page(10)
-    items.offset(10 * (page - 1))
     items.limit(10)
+    items.offset(10 * (page - 1))
 
-    logger.info("building response")
     response = { 
         "currentPage" => page,
         "list" => items,
@@ -44,7 +34,6 @@ get '/todo/api/items' do
         "sortFields" => sortFields,
         "totalResults" => total
     }
-    logger.info("returning response")
     return response.to_json
 end
 

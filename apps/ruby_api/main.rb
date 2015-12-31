@@ -2,9 +2,10 @@
 require 'json'
 require 'sinatra'
 require 'sinatra/cross_origin'
+#require 'rack/protection'
 require 'active_record'
-require 'will_paginate'
-require 'will_paginate/active_record'
+#require 'will_paginate'
+#require 'will_paginate/active_record'
 
 configure do
     set :bind, '0.0.0.0'
@@ -13,6 +14,8 @@ configure do
     enable :cross_origin
     set :allow_origin, :any
     set :allow_methods, [:get, :post, :delete, :options]
+
+    disable :protection
 end
 
 options "*" do

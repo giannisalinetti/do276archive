@@ -52,6 +52,9 @@ app.controller('itemsListController', function ($scope, $rootScope, itemService)
     $scope.$watch('sortInfo.fields[0]', function () {
         $scope.refreshGrid();
     }, true);
+    $scope.$watch('sortInfo.directions[0]', function () {
+        $scope.refreshGrid();
+    }, true);
 
     // Do something when the grid is sorted.
     // The grid throws the ngGridEventSorted that gets picked up here and assigns the sortInfo to the scope.

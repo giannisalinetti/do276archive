@@ -33,6 +33,7 @@ get '/todo/api/items' do
         "sortFields" => sortFields,
         "totalResults" => total
     }
+    headers['X-XSS-Protection'] = '0'
     return response.to_json
 end
 
