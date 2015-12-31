@@ -18,23 +18,38 @@ exports.context = function(server, path, itemsModel) {
 };
 
 exports.list = function(req, res, next) {
-    model.listAll(function(err, items) {
+    var page_no = req.query.page || 1;
+    var sortField = req.query.sortFields || "id";
+    var sortDirection = req.query.sortDirections || "asc";
+
+    model.listAll(page_no, sortField, sortDirection, function(err, items) {
         if (err) {
             next(err);
         }
         else {
             if (items) {
-                //XXX no pagination yet
-                var page = { 
-                  "currentPage" : 1,
-                  "list" : items,
-                  "pageSize" : 10,
-                  "sortDirections" : "asc",
-                  "sortFields" : "id",
-                  "totalResults" : items.length
-                };
-                res.json(page);
-                next();
+                model.countAll(function(err, n) {
+                    if (err) {
+                        next(err);
+                    }
+                    else {
+                        if (n) {
+                            var page = { 
+                                "currentPage" : page_no,
+                                "list" : items,
+                                "pageSize" : 10,
+                                "sortDirections" : sortDirection,
+                                "sortFields" : sortField,
+                                "totalResults" : n
+                            };
+                            res.json(page);
+                            next();
+                        }
+                        else {
+                            next(new Error("Can't count items"));
+                        }
+                    }
+                });
             }
             else {
                 next(new Error("Can't retrieve items"));

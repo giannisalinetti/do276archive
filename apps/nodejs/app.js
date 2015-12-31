@@ -11,6 +11,7 @@ model.connect(db.params, function(err) {
 
 var server = restify.createServer() 
     .use(restify.fullResponse())
+    .use(restify.queryParser())
     .use(restify.bodyParser());
     
 controller.context(server, '/todo/api', model); 

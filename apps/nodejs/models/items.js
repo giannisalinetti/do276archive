@@ -101,8 +101,17 @@ exports.destroy = function(key, callback) {
     });
 }
 
-exports.listAll = function(callback) {
-    Item.findAll().then(function(items) {
+exports.countAll = function(callback) {
+    Item.findAll({ attributes: { include: [[Sequelize.fn('COUNT', Sequelize.col('id')), 'no_items']] } }).then(function(n) {
+        callback(null, n[0].get('no_items'));
+    }).error(function(err) {
+        callback(err);
+    });
+   //callback(null, 100);
+}
+
+exports.listAll = function(page, sortField, sortDirection, callback) {
+    Item.findAll({ offset: 10 * (page - 1), limit: 10,  order: [[sortField, sortDirection]] }).then(function(items) {
         var theitems = [];
         items.forEach(function(item) {
             //XXX why recreating the item objects for theitems?
