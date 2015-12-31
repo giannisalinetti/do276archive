@@ -1,4 +1,4 @@
-FROM	rhel7
+FROM	rhel7.2
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 ENV 	NODEJS_VERSION 0.10 
@@ -47,7 +47,8 @@ ADD	./enable-nodejs010.sh /etc/profile.d/
 USER	appuser
 WORKDIR	${HOME}
 
-ONBUILD	COPY . ${HOME}/ 
+#ONBUILD	COPY . ${HOME}/ 
+ONBUILD COPY run.sh build ${HOME}/
 ONBUILD RUN scl enable nodejs010 'npm install'
 
 CMD	["echo", "You must create your own container from this one."]
