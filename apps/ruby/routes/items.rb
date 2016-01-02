@@ -21,10 +21,7 @@ get '/todo/api/items' do
     end        
 
     page = (page > 0) ? page : 1 
-    #XXX no form of paging is working :-(
-    #items.page(page).per_page(10)
-    items.limit(10)
-    items.offset(10 * (page - 1))
+    items = items.offset(10 * (page - 1)).limit(10)
 
     response = { 
         "currentPage" => page,

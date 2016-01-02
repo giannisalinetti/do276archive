@@ -4,8 +4,6 @@ require 'sinatra'
 require 'sinatra/cross_origin'
 #require 'rack/protection'
 require 'active_record'
-#require 'will_paginate'
-#require 'will_paginate/active_record'
 
 configure do
     set :bind, '0.0.0.0'

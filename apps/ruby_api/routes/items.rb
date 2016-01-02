@@ -9,12 +9,6 @@ get '/todo/api/items' do
     
     items = Item.all
 
-    page = (page > 0) ? page : 1 
-    #XXX no form of paging is working :-(
-    #items.page(page).per_page(10)
-    #items.offset(10 * (page - 1))
-    #items.limit(10)
-
     if (sortFields == 'id')
         items = items.order(id: (sortDirections == 'desc') ? :desc : :asc)
     elsif (sortFields == 'description')
@@ -24,6 +18,9 @@ get '/todo/api/items' do
     elsif
         items = items.order(id: :asc)
     end        
+
+    page = (page > 0) ? page : 1 
+    items = items.offset(10 * (page - 1)).limit(10)
 
     response = { 
         "currentPage" => page,
