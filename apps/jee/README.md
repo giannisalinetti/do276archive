@@ -8,5 +8,5 @@
 
 * Deploy MySQL JDBC driver to Wildfly
 
-* Create datasource for MySQL items database
+* Create datasource 'java:jboss/datasources/MySQLDS' for MySQL items database
 
