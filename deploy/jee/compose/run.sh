@@ -9,4 +9,4 @@ else
   rm -fr initdb/*
 fi
 
-scl enable python27 "docker-compose up -d"
+scl enable python34 "docker-compose up -d"

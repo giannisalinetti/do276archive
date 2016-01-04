@@ -1,2 +1,2 @@
 #!/bin/sh
-scl enable python27 "docker-compose stop"
+scl enable python34 "docker-compose stop"

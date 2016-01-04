@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="angular.min.js" type="javaScript">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/static/angular-resource.min.js" />
-      <root url="file://$PROJECT_DIR$/static/ui-bootstrap-tpls.min.js" />
-      <root url="file://$PROJECT_DIR$/static/item.js" />
-      <root url="file://$PROJECT_DIR$/static/jquery.min.js" />
-      <root url="file://$PROJECT_DIR$/static/ng-grid-2.0.11.min.js" />
-      <root url="file://$PROJECT_DIR$/static/angular.min.js" />
+      <root url="file://$PROJECT_DIR$/static/js/angular-resource.min.js" />
+      <root url="file://$PROJECT_DIR$/static/js/ui-bootstrap-tpls.min.js" />
+      <root url="file://$PROJECT_DIR$/static/js/item.js" />
+      <root url="file://$PROJECT_DIR$/static/js/jquery.min.js" />
+      <root url="file://$PROJECT_DIR$/static/js/ng-grid-2.0.11.min.js" />
+      <root url="file://$PROJECT_DIR$/static/js/angular.min.js" />
     </CLASSES>
     <SOURCES />
   </library>
