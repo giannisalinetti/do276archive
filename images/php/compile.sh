@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-echo "Attempting to run compose in the following directory..."
+
 if [ -f composer.json ]; then
   echo "Found 'composer.json', installing dependencies using composer.phar... "
 
