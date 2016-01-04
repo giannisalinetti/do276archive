@@ -84,6 +84,11 @@ def list_items():
     sort_directions = request.args.get('sortDirections')
     start = (int(page) - 1) * page_size
     result = find_items(start, page_size, sort_fields, sort_directions)
+    for dict in result:
+        if dict['done']:
+            dict['done'] = True
+        else:
+            dict['done'] = False
     full_response = ({
         "currentPage": page,
         "list": result,
