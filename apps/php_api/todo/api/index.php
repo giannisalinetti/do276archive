@@ -21,7 +21,13 @@ $app->get('/items', function() use($service, $app) {
     }
     $start = ((int)$page - 1) * $pageSize;
     $sortFields = $app->request()->params('sortFields');
+    if ($sortFields == null) {
+        $sortFields = 'id';
+    }
     $sortDirections = $app->request()->params('sortDirections');
+    if ($sortDirections == null){
+        $sortDirections = 'asc';
+    }
     $service->findItems($page, $pageSize, $start, $pageSize, $sortFields, $sortDirections);
 });
 $app->get('/items/:id', function($id) use($service) {
