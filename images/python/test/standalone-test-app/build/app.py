@@ -5,8 +5,8 @@ from gunicorn.six import iteritems
 
 
 def wsgi_handler(environ, start_response):
-    start_response('200 OK', [('Content-Type','text/html')])
-    return [b"Hello World from standalone WSGI application!"]
+    start_response('200 OK', [('Content-Type','text/plain')])
+    return [b"Hello there"]
 
 class StandaloneApplication(BaseApplication):
     def __init__(self, app, options=None):

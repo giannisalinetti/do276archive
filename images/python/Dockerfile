@@ -1,4 +1,4 @@
-FROM	rhel7
+FROM	rhel7.2
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 ENV 	PYTHON_VERSION 3.4

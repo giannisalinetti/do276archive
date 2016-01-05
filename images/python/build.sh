@@ -1,1 +1,1 @@
-docker build -t do276/python34 .
+docker build -t do276/python .
