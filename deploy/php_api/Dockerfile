@@ -1,4 +1,4 @@
-FROM	do276/php56
+FROM	do276/php
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 EXPOSE 8080
 USER appuser
