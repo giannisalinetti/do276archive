@@ -73,7 +73,7 @@ RUN 	sed -i -f /opt/app-root/etc/httpdconf.sed /opt/rh/httpd24/root/etc/httpd/co
 USER	appuser
 WORKDIR	${HOME}
 
-ADD	./compile.sh ./todo/api
+ADD	./compile.sh ./
 ONBUILD COPY . ${HOME}/
 ONBUILD RUN ./compile.sh 
 
