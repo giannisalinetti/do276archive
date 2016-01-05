@@ -25,8 +25,8 @@ class ItemsService
             "totalResults" => count($items)
         );
         // Not needed, CORS done by .htaccess
-        $response = $this->app->response();
-        $response->header('Access-Control-Allow-Origin', '*');
+        //$response = $this->app->response();
+        //$response->header('Access-Control-Allow-Origin', '*');
         $this->app->response->write(json_encode($data));
     }
 
@@ -42,8 +42,8 @@ class ItemsService
             "totalResults" => count($items)
         );
         // Not needed, CORS done by .htaccess
-        $response = $this->app->response();
-        $response->header('Access-Control-Allow-Origin', '*');
+        //$response = $this->app->response();
+        //$response->header('Access-Control-Allow-Origin', '*');
         $this->app->response->write(json_encode($data));
     }
 
