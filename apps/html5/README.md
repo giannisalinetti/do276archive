@@ -16,5 +16,5 @@ Open a web browser and visit http://localhost:30000/todo to run the application 
 
 The SCL httpd24 daemon has to be configured to listen in this alternate port to not conflict with the RHEL7 httpd daemon which is used to emulate UCF classroom services. Start and stop the httpd24-httpd service as needed so it won't conflict with the containerized version of the front end.
 
-The font end expects to find the back end at http://api.lab.example.com:30080/todo/api/ so the developer needs to configure his workstation to make api.example.com point to 127.0.0.1 or whatever IP the back end is listening to.
+The font end expects to find the back end at http://api.lab.example.com:30080/todo/api/ so the developer needs to configure his workstation to make api.lab.example.com point to 127.0.0.1 or whatever IP the back end is listening to.
 
