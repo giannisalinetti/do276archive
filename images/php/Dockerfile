@@ -77,6 +77,11 @@ EXPOSE 8080
 
 ADD	./compile.sh ./
 ONBUILD COPY run.sh ./build ${HOME}/
+# Ugly hack #1: chown files so later composer (called from compile.sh) can install dependencies
+#ONBUILD USER root
+#ONBUILD RUN chown -R appuser:appuser . 
+#ONBUILD USER appuser
+# End of Ugly hack #1
 ONBUILD RUN ./compile.sh 
 
 CMD	["echo", "You must create your own container with your app source code."]
