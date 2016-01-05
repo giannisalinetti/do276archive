@@ -1,4 +1,4 @@
-FROM	rhel7
+FROM	rhel7.2
 MAINTAINER Jim Rigsbee <jrigsbee@redhat.com>
 
 ENV 	PHP_VERSION 5.6 
@@ -73,8 +73,10 @@ RUN 	sed -i -f /opt/app-root/etc/httpdconf.sed /opt/rh/httpd24/root/etc/httpd/co
 USER	appuser
 WORKDIR	${HOME}
 
+EXPOSE 8080
+
 ADD	./compile.sh ./
-ONBUILD COPY . ${HOME}/
+ONBUILD COPY ./build ${HOME}/
 ONBUILD RUN ./compile.sh 
 
 CMD	["echo", "You must create your own container with your app source code."]

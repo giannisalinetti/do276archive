@@ -1,1 +1,1 @@
-docker build -t do276/php56 .
+docker build -t do276/php .
