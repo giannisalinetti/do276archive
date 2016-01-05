@@ -43,6 +43,8 @@ yum -y install rh-ruby22 rh-ruby22-rubygem-json rh-ruby22-ruby-devel rh-ruby22-r
 
 yum -y install nodejs010-nodejs nodejs010-npm 
 
+yum -y install rh-python34 rh-python34-python-devel rh-python34-python-setuptools rh-python34-python-pip 
+
 # Shouldn't Vagrant do this by itself?
 echo "${ip} `hostname`" >> /etc/hosts
 ssh-keygen -f /root/.ssh/id_rsa -t rsa -N ''
