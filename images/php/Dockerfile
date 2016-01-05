@@ -75,6 +75,6 @@ WORKDIR	${HOME}
 
 ADD	./compile.sh ./todo/api
 ONBUILD COPY . ${HOME}/
-ONBUILD RUN ./todo/api/compile.sh 
+ONBUILD RUN ./compile.sh 
 
 CMD	["echo", "You must create your own container with your app source code."]
