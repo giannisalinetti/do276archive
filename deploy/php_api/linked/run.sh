@@ -1,4 +1,7 @@
 #!/bin/sh 
+
+sudo rm -rf work
+
 if [ ! -d "work" ]; then
   echo "Create database volume..."
 
