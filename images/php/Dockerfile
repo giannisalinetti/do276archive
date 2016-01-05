@@ -76,7 +76,7 @@ WORKDIR	${HOME}
 EXPOSE 8080
 
 ADD	./compile.sh ./
-ONBUILD COPY ./build ${HOME}/
+ONBUILD COPY run.sh ./build ${HOME}/
 ONBUILD RUN ./compile.sh 
 
 CMD	["echo", "You must create your own container with your app source code."]

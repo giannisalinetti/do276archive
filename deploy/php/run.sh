@@ -18,21 +18,4 @@ export PHP_INI_SCAN_DIR=${PHP_INI_SCAN_DIR:-/etc/opt/rh/rh-php56/php.d}
 envsubst < /opt/app-root/etc/php.ini.template > $PHPRC
 envsubst < /opt/app-root/etc/php.d/10-opcache.ini.template > $PHP_INI_SCAN_DIR/10-opcache.ini
 
-cd todo/api
-
-if [ -f composer.json ]; then
-  echo "Found 'composer.json', installing dependencies using composer.phar... "
-
-  # Install Composer
-  php -r "readfile('https://getcomposer.org/installer');" | php
-
-  # Install App dependencies using Composer
-  ./composer.phar install --no-interaction --no-ansi --no-scripts --optimize-autoloader
-
-  if [ -f composer.phar ]; then
-    echo -e "\nConsider adding a 'composer.lock' file into your source repository.\n"
-  fi
-fi
-
-
 exec httpd -D FOREGROUND
