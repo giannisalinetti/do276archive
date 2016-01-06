@@ -5,3 +5,5 @@ the language/frameworks used in the solution.
 
 Each folder contains a `build.sh` script to build the container image and a `test.sh` script to test the image, sometimes by creating a derived image.
 
+Child images (application images) shoud copy their sources to a build folder at the same level as the child Dockerfile.
+
