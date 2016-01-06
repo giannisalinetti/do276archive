@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 require_once 'service/ItemsService.php';
 require_once 'dao/ItemDAO.php';
 
-$dsn = 'mysql:host='.$_ENV["MYSQL_PORT_3306_TCP_ADDR"] . ':' . $_ENV["MYSQL_PORT_3306_TCP_PORT"] .';dbname='.$_ENV["MYSQL_DB_NAME"];
+$dsn = 'mysql:host='.$_ENV["MYSQL_PORT_3306_TCP_ADDR"] . ':' . $_ENV["MYSQL_PORT_3306_TCP_PORT"] .';dbname='.$_ENV["MYSQL_ENV_MYSQL_DATABASE"];
 $user = $_ENV["MYSQL_ENV_MYSQL_USER"];
 $pass = $_ENV["MYSQL_ENV_MYSQL_PASSWORD"];
 
