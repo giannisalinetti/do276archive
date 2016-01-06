@@ -5,6 +5,7 @@ app.config(function ($httpProvider) {
   $httpProvider.defaults.headers.post = {};
   $httpProvider.defaults.headers.put = {};
   $httpProvider.defaults.headers.patch = {};
+  $httpProvider.defaults.headers.delete = {};
 });
 
 // Create a controller with name itemListController to bind to the grid section.
