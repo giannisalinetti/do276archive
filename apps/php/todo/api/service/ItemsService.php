@@ -22,7 +22,7 @@ class ItemsService
             "pageSize" => $pageSize,
             "sortDirections" => $sortDirections,
             "sortFields" => $sortFields,
-            "totalResults" => count($items)
+            "totalResults" => count($this->dao->listAll())
         );
         // Not needed, CORS done by .htaccess
         //$response = $this->app->response();
