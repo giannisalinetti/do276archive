@@ -1,12 +1,13 @@
 var app = angular.module('items', ['ngResource', 'ngGrid', 'ui.bootstrap']);
 
-//app.config(function ($httpProvider) {
-//  $httpProvider.defaults.headers.common = {};
-//  $httpProvider.defaults.headers.post = {};
-//  $httpProvider.defaults.headers.put = {};
-//  $httpProvider.defaults.headers.patch = {};
-//  $httpProvider.defaults.headers.delete = {};
-//});
+app.config(function ($httpProvider) {
+  $httpProvider.defaults.headers.common = {};
+  $httpProvider.defaults.headers.post = {};
+  $httpProvider.defaults.headers.put = {};
+  $httpProvider.defaults.headers.patch = {};
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
+});
 
 // Create a controller with name itemListController to bind to the grid section.
 app.controller('itemsListController', function ($scope, $rootScope, itemService) {
