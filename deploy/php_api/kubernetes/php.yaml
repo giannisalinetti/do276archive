@@ -14,7 +14,7 @@ spec:
       ports: 
         - containerPort: 30080
           nodePort: 30080
-          name: nodejs-http 
+          name: php-http 
       env:
         - name: MYSQL_ENV_MYSQL_DATABASE
           value: items
