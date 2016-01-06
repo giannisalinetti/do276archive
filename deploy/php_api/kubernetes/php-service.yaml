@@ -6,7 +6,7 @@ metadata:
   name: todoapi
 spec: 
   ports:
-    - port: 30080
+    - port: 8080
       nodePort: 30080
   selector:
     name: todoapi
