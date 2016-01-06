@@ -8,4 +8,4 @@ And deleted using:
 
 $ kubectl delete -f mysql-ext-service.yaml
 
-Access the application as http://localhost:30080/todo
+Access the application as http://localhost:30000/

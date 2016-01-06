@@ -1,8 +1,7 @@
-#!/bin/bash -x
+#!/bin/bash 
 
 set -e
 
-#PHAR=$PWD
 if [ -r ./approot.sh ]; then
   source ./approot.sh
 else
@@ -10,16 +9,11 @@ else
 fi
 cd $APPROOT
 
-echo "running as user: $(id)"
-ls -l
-
 if [ -f ./composer.json ]; then
   echo "Found 'composer.json', installing dependencies using composer.phar... "
 
   # Install Composer
   php -r "readfile('https://getcomposer.org/installer');" | php
-
-  #cd $APPROOT
 
   # Install App dependencies using Composer
   ./composer.phar install --no-interaction --no-ansi --no-scripts --optimize-autoloader

@@ -21,3 +21,4 @@ kubectl create -f php.yaml
 kubectl create -f php-service.yaml
 kubectl create -f ui.yaml
 kubectl create -f ui-service.yaml
+

@@ -13,7 +13,6 @@ spec:
       name: todoapi
       ports: 
         - containerPort: 30080
-          nodePort: 30080
           name: nodejs-http 
       env:
         - name: MYSQL_ENV_MYSQL_DATABASE

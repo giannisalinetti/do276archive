@@ -1,4 +1,7 @@
 #!/bin/sh 
+
+sudo rm -rf /tmp/work
+
 if [ ! -d "/tmp/work" ]; then
   echo "Create database volume..."
   mkdir -p /tmp/work/init /tmp/work/data
@@ -6,7 +9,7 @@ if [ ! -d "/tmp/work" ]; then
   sudo chown -R 27:27 /tmp/work
   sudo chcon -Rt svirt_sandbox_file_t /tmp/work
 else
-  rm -fr /tmp/work/init/*
+  sudo rm -fr /tmp/work/init/*
 fi
 
 kubectl create -f pv.yaml

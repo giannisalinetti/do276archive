@@ -12,8 +12,7 @@ spec:
       image: do276/todoapi_php
       name: todoapi
       ports: 
-        - containerPort: 30080
-          nodePort: 30080
+        - containerPort: 8080
           name: php-http 
       env:
         - name: MYSQL_ENV_MYSQL_DATABASE
