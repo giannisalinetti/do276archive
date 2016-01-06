@@ -1,13 +1,5 @@
 var app = angular.module('items', ['ngResource', 'ngGrid', 'ui.bootstrap']);
 
-app.config(function ($httpProvider) {
-  $httpProvider.defaults.headers.common = {};
-  $httpProvider.defaults.headers.post = {};
-  $httpProvider.defaults.headers.put = {};
-  $httpProvider.defaults.headers.patch = {};
-
-});
-
 // Create a controller with name itemListController to bind to the grid section.
 app.controller('itemsListController', function ($scope, $rootScope, itemService) {
     // Initialize required information: sorting, the first page to show and the grid options.
