@@ -1,4 +1,4 @@
-FROM	do276/python34
+FROM	do276/python
 RUN     source /etc/profile.d/enable-python34.sh && pip install mysql-connector-python --allow-external mysql-connector-python
 EXPOSE	8080
 USER	appuser
