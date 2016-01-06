@@ -12,6 +12,16 @@ $app = new \Slim\Slim();
 $dao = new \dao\ItemDAO($dsn, $user, $pass);
 $service = new \service\ItemsService($app, $dao);
 
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE');
+    header('Access-Control-Allow-Headers: X-Requested-With, Content-Type');
+}
+else {
+    header('Access-Control-Allow-Origin: *');
+    echo 'foobar';
+}
+
 // TODO move this initialization to the Service class, but how?
 $app->get('/items', function() use($service, $app) {
     $pageSize = 10;
