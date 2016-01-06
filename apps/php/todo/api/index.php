@@ -12,6 +12,25 @@ $app = new \Slim\Slim();
 $dao = new \dao\ItemDAO($dsn, $user, $pass);
 $service = new \service\ItemsService($app, $dao);
 
+// respond to preflights
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    // return only the headers and not the content
+    // only allow CORS if we're doing a GET - i.e. no saving for now.
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) &&
+        $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET' &&
+        isset($_SERVER['HTTP_ORIGIN']) &&
+        is_approved($_SERVER['HTTP_ORIGIN'])) {
+        $allowedOrigin = $_SERVER['HTTP_ORIGIN'];
+        $allowedHeaders = get_allowed_headers($allowedOrigin);
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE'); //...
+        header('Access-Control-Allow-Origin: ' . $allowedOrigin);
+        header('Access-Control-Allow-Headers: ' . $allowedHeaders);
+        header('Access-Control-Max-Age: 3600');
+    }
+    exit;
+}
+
+
 // TODO move this initialization to the Service class, but how?
 $app->get('/items', function() use($service, $app) {
     $pageSize = 10;
