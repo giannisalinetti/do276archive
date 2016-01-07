@@ -13,10 +13,9 @@ spec:
       name: todo
       ports: 
         - containerPort: 8080 
-          nodePort: 30080
           name: php-http 
       env:
-        - name: MYSQL_DB_NAME
+        - name: MYSQL_ENV_MYSQL_DATABASE
           value: items
         - name: MYSQL_ENV_MYSQL_USER
           value: user1 
