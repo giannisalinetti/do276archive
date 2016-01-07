@@ -57,7 +57,7 @@ RUN  	chown -R appuser:appuser /opt/app-root && \
 WORKDIR	${HOME}
 
 #ONBUILD COPY run.sh ./build ${HOME}/
-ONBUILD COPY . ${HOME}/
+ONBUILD COPY ./build/ ${HOME}/
 ONBUILD RUN ./compile.sh
 
 CMD	["echo", "You must create your own container with your app source code."]
