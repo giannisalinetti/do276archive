@@ -49,9 +49,13 @@ app.controller('itemsListController', function ($scope, $rootScope, itemService)
 
     // Watch the sortInfo variable. If changes are detected than we need to refresh the grid.
     // This also works for the first page access, since we assign the initial sorting in the initialize section.
-    $scope.$watch('sortInfo.fields[0]', function () {
+     $scope.$watch('sortInfo.fields[0]', function () {
         $scope.refreshGrid();
     }, true);
+    $scope.$watch('sortInfo.directions[0]', function () {
+        $scope.refreshGrid();
+    }, true);
+
 
     // Do something when the grid is sorted.
     // The grid throws the ngGridEventSorted that gets picked up here and assigns the sortInfo to the scope.
