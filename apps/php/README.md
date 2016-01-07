@@ -46,3 +46,22 @@ Should have provisions for CORS but was tested with front end and back end toget
 
 * Change frontend to access service in port 80
 
+* Have mysqh55 from SCL installed and database created and populated using scripts from ../jee/src/main/resources/sql/
+
+`$ sudo su -`
+
+`# source /opt/rh/mysql55/enable`
+
+`# mysql`
+
+`mysql> create database items;`
+
+`mysql> grant all on items.* to user1@"%" identified by 'mypa55' ;`
+
+`mysql> grant all on items.* to user1@"127.0.0.1" identified by 'mypa55' ;`
+
+`$ mysql -h127.0.0.1 -uuser1 -pmypa55 items < ../jee/src/main/resources/sql/create.sql`
+
+`$ mysql -h127.0.0.1 -uuser1 -pmypa55 items < ../jee/src/main/resources/sql/load.sql `
+
+
