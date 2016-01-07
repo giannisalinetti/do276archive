@@ -6,6 +6,7 @@ from flask import abort
 from flask import render_template
 import json
 import mysql.connector
+from db import db
 import os
 from mysql.connector import errorcode
 
@@ -14,12 +15,14 @@ app = Flask(__name__)
 
 @app.before_request
 def db_connect():
+    db_config = db()
+
     try:
-        g.cnx = mysql.connector.connect(user=os.environ.get("MYSQL_ENV_MYSQL_USER", 'root'),
-                                        password=os.environ.get("MYSQL_ENV_MYSQL_PASSWORD", ''),
-                                        host=os.environ.get("MYSQL_PORT_3306_TCP_ADDR", '127.0.0.1'),
-                                        port=os.environ.get("MYSQL_PORT_3306_TCP_PORT", '3306'),
-                                        database=os.environ.get("MYSQL_DB_NAME", 'todo'))
+        g.cnx = mysql.connector.connect(user=db_config.username,
+                                        password=db_config.password,
+                                        host=db_config.host,
+                                        port=db_config.port,
+                                        database=db_config.name)
         g.cursor = g.cnx.cursor()
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
