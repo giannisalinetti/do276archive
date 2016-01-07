@@ -4,34 +4,27 @@ require 'vendor/autoload.php';
 require_once 'service/ItemsService.php';
 require_once 'dao/ItemDAO.php';
 
-$dsn = 'mysql:host='.$_ENV["MYSQL_PORT_3306_TCP_ADDR"] . ':' . $_ENV["MYSQL_PORT_3306_TCP_PORT"] .';dbname='.$_ENV["MYSQL_ENV_MYSQL_DATABASE"];
-$user = $_ENV["MYSQL_ENV_MYSQL_USER"];
-$pass = $_ENV["MYSQL_ENV_MYSQL_PASSWORD"];
+require './db.php';
 
 $app = new \Slim\Slim();
 $dao = new \dao\ItemDAO($dsn, $user, $pass);
 $service = new \service\ItemsService($app, $dao);
 
-// respond to preflights
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    // return only the headers and not the content
-    // only allow CORS if we're doing a GET - i.e. no saving for now.
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) &&
-        $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET' &&
-        isset($_SERVER['HTTP_ORIGIN']) &&
-        is_approved($_SERVER['HTTP_ORIGIN'])) {
-        $allowedOrigin = $_SERVER['HTTP_ORIGIN'];
-        $allowedHeaders = get_allowed_headers($allowedOrigin);
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE'); //...
-        header('Access-Control-Allow-Origin: ' . $allowedOrigin);
-        header('Access-Control-Allow-Headers: ' . $allowedHeaders);
-        header('Access-Control-Max-Age: 3600');
-    }
-    exit;
+// CORS: Allow from any origin
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+    header('Access-Control-Allow-Credentials: true');
 }
 
+// Access-Control headers are received during OPTIONS requests
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");         
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+        header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+    exit(0);
+}
 
-// TODO move this initialization to the Service class, but how?
 $app->get('/items', function() use($service, $app) {
     $pageSize = 10;
     $page = $app->request()->params('page');
