@@ -15,3 +15,4 @@ And deleted using:
 
 $ kubectl delete -f mysql-ext-service.yaml
 
+To test the application, access http://localhost:30080/todo from your developer workstation
