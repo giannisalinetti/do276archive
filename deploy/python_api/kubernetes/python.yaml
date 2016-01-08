@@ -15,7 +15,7 @@ spec:
         - containerPort: 8080 
           name: python 
       env:
-        - name: MYSQL_DB_NAME
+        - name: MYSQL_ENV_MYSQL_DATABASE
           value: items
         - name: MYSQL_ENV_MYSQL_USER
           value: user1
