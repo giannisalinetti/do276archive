@@ -45,6 +45,13 @@ yum -y install nodejs010-nodejs nodejs010-npm
 
 yum -y install rh-python34 rh-python34-python-devel rh-python34-python-setuptools rh-python34-python-pip 
 
+yum -y install rh-php56 rh-php56-php-pear rh-php56-php-pecl-jsonc rh-php56-php-mysqlnd rh-php56-php rh-php56-php-pdo
+setsebool httpd_can_network_connect_db on
+sed -i 's/AllowOverride None/AllowOverride All/' /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf 
+sed -i 's/variables_order = "GPCS"/variables_order = "EGPCS"/' /etc/opt/rh/rh-php56/php.ini
+echo 'HTTPD24_HTTPD_SCLS_ENABLED="httpd24 rh-php56"' > /opt/rh/httpd24/service-environment
+semanage port -a -t http_port_t -p tcp 30080
+
 # Shouldn't Vagrant do this by itself?
 echo "${ip} `hostname`" >> /etc/hosts
 ssh-keygen -f /root/.ssh/id_rsa -t rsa -N ''
