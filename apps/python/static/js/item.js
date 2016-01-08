@@ -160,5 +160,5 @@ app.controller('alertMessagesController', function ($scope) {
 
 // Service that provides items operations
 app.factory('itemService', function ($resource) {
-    return $resource('todo/api/items/:id');
+    return $resource('/todo/api/items/:id');
 });
