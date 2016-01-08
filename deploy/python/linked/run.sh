@@ -1,4 +1,7 @@
 #!/bin/sh 
+
+sudo rm -rf work
+
 if [ ! -d "work" ]; then
   echo "Create database volume..."
 
@@ -12,4 +15,4 @@ fi
 
 docker run -d --name mysql -e MYSQL_DATABASE=items -e MYSQL_USER=user1 -e MYSQL_PASSWORD=mypa55 -e MYSQL_ROOT_PASSWORD=r00tpa55 -v $PWD/work/data:/var/lib/mysql/data -v $PWD/work/init:/var/lib/mysql/init -p 30306:3306 do276/mysql-55-rhel7
 
-docker run -d -e MYSQL_DB_NAME=items --link mysql:mysql --name todo -p 30080:8080 do276/todopython
+docker run -d --link mysql:mysql --name todo -p 30080:8080 do276/todopython
